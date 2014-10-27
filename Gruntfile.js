@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 
         shell: {
             test: {
-                command: 'java -jar lib/ckbuilder/2.0.1/ckbuilder.jar --build stage/ dist/ --overwrite --no-zip --no-tar',
+                command: 'java -jar lib/ckbuilder/2.0.1/ckbuilder.jar --build stage/ dist/ --skip-omitted-in-build-config --overwrite --no-zip --no-tar',
                 stderr: false
             }
         },
@@ -48,6 +48,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('stage', 'copy');
+    grunt.registerTask('stage', ['clean', 'copy']);
     grunt.registerTask('build', 'shell');
 };

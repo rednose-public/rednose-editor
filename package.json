@@ -1,0 +1,19 @@
+{
+  "name": "rednose-editor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build-config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.rednose.nl:rednose/rednose-editor.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-shell": "^1.1.1"
+  }
+}

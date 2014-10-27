@@ -17,6 +17,13 @@ module.exports = function(grunt) {
                 ]
             },
 
+            quicktable: {
+                files: [
+                    {expand: true, cwd: 'bower_components/quicktable', src: 'lang/**', dest: '<%= stageDir %>/plugins/quicktable'},
+                    {expand: true, cwd: 'bower_components/quicktable', src: 'plugin.js', dest: '<%= stageDir %>/plugins/quicktable'}
+                ]
+            },
+
             config: {
                 files: [
                     {expand: true, cwd: 'src', src: 'config.js', dest: '<%= stageDir %>'}
@@ -26,7 +33,7 @@ module.exports = function(grunt) {
 
         shell: {
             test: {
-                command: 'java -jar lib/ckbuilder/2.0.1/ckbuilder.jar --build stage/ dist/ --skip-omitted-in-build-config --overwrite --no-zip --no-tar',
+                command: 'java -jar lib/ckbuilder/2.0.1/ckbuilder.jar --build stage/ dist --skip-omitted-in-build-config --overwrite --no-zip --no-tar',
                 stderr: false
             }
         },

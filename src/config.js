@@ -17,13 +17,15 @@ CKEDITOR.editorConfig = function( config ) {
         'entities,' +
         'floatingspace,' +
         'format,' +
+        'htmlwriter,' +
         'image,' +
         'link,' +
         'list,' +
         'magicline,' +
         'pastefromword,' +
         'pastetext,' +
-        //'sourcearea,' +
+        'quicktable,' +
+        'sourcearea,' +
         //'stylescombo,' +
         'tab,' +
         'table,' +

@@ -15,6 +15,12 @@ module.exports = function(grunt) {
                 files: [
                     {expand: true, cwd: 'bower_components/bootstrapck4-skin/skins/bootstrapck', src: '**/*', dest: '<%= stageDir %>/skins/bootstrapck'}
                 ]
+            },
+
+            config: {
+                files: [
+                    {expand: true, cwd: 'src', src: 'config.js', dest: '<%= stageDir %>'}
+                ]
             }
         },
 
@@ -27,12 +33,20 @@ module.exports = function(grunt) {
 
         clean: {
             stage: ['stage']
+        },
+
+        watch: {
+            src: {
+                files: ['src/**/*.js'],
+                tasks: ['copy:config']
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('stage', 'copy');
     grunt.registerTask('build', 'shell');

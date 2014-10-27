@@ -1,0 +1,19 @@
+{
+  "name": "rednose-editor",
+  "version": "0.0.0",
+  "authors": [
+    "Marc Bontje <marc@rednose.nl>"
+  ],
+  "private": true,
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "ckeditor-dev": "4.4.5"
+  }
+}

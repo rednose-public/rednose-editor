@@ -7,6 +7,8 @@ CKEDITOR.editorConfig = function( config ) {
     // Define changes to default configuration here. For example:
     // config.language = 'fr';
     // config.uiColor = '#AADC6E';
+    config.dialog_backgroundCoverColor = 'black'; // Bootstrap integration
+
     // %REMOVE_START%
     config.skin = 'bootstrapck';
     config.plugins =

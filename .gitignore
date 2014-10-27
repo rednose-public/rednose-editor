@@ -4,6 +4,7 @@
 .grunt
 _SpecRunner.html
 test/coverage
+stage
 
 node_modules
 npm-debug.log

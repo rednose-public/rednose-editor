@@ -4,7 +4,7 @@
  */
 
 var CKBUILDER_CONFIG = {
-	skin: 'moono',
+	skin: 'bootstrapck',
 	ignore: [
 		'bender.js',
 		'.bender',
@@ -71,7 +71,7 @@ var CKBUILDER_CONFIG = {
 		selectall: 1,
 		showblocks: 1,
 		showborders: 1,
-		smiley: 1,
+		smiley: 0,
 		sourcearea: 1,
 		specialchar: 1,
 		stylescombo: 1,

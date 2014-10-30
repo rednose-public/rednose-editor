@@ -24,6 +24,12 @@ module.exports = function(grunt) {
                 ]
             },
 
+            plugins: {
+                files: [
+                    {expand: true, cwd: 'src/plugins', src: '**/*', dest: '<%= stageDir %>/plugins'}
+                ]
+            },
+
             config: {
                 files: [
                     {expand: true, cwd: 'src', src: 'config.js', dest: '<%= stageDir %>'}
@@ -45,7 +51,7 @@ module.exports = function(grunt) {
         watch: {
             src: {
                 files: ['src/**/*.js'],
-                tasks: ['copy:config']
+                tasks: ['copy:config', 'copy:plugins']
             }
         }
     });

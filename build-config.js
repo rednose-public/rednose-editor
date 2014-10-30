@@ -40,7 +40,7 @@ var CKBUILDER_CONFIG = {
 		magicline: 1,
 		pastefromword: 1,
 		pastetext: 1,
-        quicktable: 1,
+        //quicktable: 1,
 		sourcearea: 1,
 		stylescombo: 1,
 		tab: 1,

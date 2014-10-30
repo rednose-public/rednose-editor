@@ -2,8 +2,8 @@
 
 <html>
 <head>
-    <!--<script src="stage/ckeditor.js"></script>-->
-    <script src="../dist/ckeditor/ckeditor.js"></script>
+    <script src="../stage/ckeditor.js"></script>
+    <!--<script src="../dist/ckeditor/ckeditor.js"></script>-->
 </head>
 <body>
 <textarea id="editor">
@@ -158,10 +158,11 @@
     </table>
 </textarea>
 <script>
-        CKEDITOR.replace('editor', {
-            contentsCss: 'editor.css',
-            height: 400
-        });
+        CKEDITOR.replace('editor');
+//        , {
+//            contentsCss: 'editor.css',
+//            height: 400
+//        });
     </script>
 </body>
 <html>

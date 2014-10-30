@@ -26,12 +26,12 @@ CKEDITOR.editorConfig = function( config ) {
         'magicline,' +
         'pastefromword,' +
         'pastetext,' +
-        'quicktable,' +
+        //'quicktable,' +
         'sourcearea,' +
         //'stylescombo,' +
         'tab,' +
         'table,' +
-        'tabletools,' +
+        //'tabletools,' +
         'toolbar,' +
         'undo,' +
         'wysiwygarea';

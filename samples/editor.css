@@ -5,7 +5,7 @@ table {
 }
 
 /*Custom styling*/
-body, input, textarea, select, label {
+table {
   font-family: verdana, arial, sans-serif;
   color: #000;
   line-height: 18px;

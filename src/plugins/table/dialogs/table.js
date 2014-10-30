@@ -384,7 +384,8 @@
                                                     label: editor.lang.common.width,
                                                     title: editor.lang.common.cssLengthTooltip,
                                                     // Smarter default table width. (#9600)
-                                                    'default': editor.filter.check( 'table{width}' ) ? ( editable.getSize( 'width' ) < 500 ? '100%' : 500 ) : 0,
+                                                    'default': '',
+                                                    //'default': editor.filter.check( 'table{width}' ) ? ( editable.getSize( 'width' ) < 500 ? '100%' : 500 ) : 0,
                                                     getValue: defaultToPixel,
                                                     validate: CKEDITOR.dialog.validate.cssLength( editor.lang.common.invalidCssLength.replace( '%1', editor.lang.common.width ) ),
                                                     onChange: function() {

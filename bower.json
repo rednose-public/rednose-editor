@@ -15,6 +15,7 @@
   ],
   "devDependencies": {
     "ckeditor-dev": "4.4.5",
-    "bootstrapck4-skin": "~1.0.0"
+    "bootstrapck4-skin": "~1.0.0",
+    "quicktable": "https://github.com/ufdada/quicktable.git#v1.0.5"
   }
 }

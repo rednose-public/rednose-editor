@@ -38,32 +38,28 @@
   margin-bottom: 15pt;
 }
 
+/* Table style */
 /*Default to initial Word styling: 100% width and evenly spaced columns */
-table {
+.Tabel {
   table-layout: fixed;
+  font-family: Verdana;
   width: 100%;
-}
-
-/*Custom styling*/
-table {
-  font-family: verdana, arial, sans-serif;
   color: #000;
   line-height: 18px;
   font-size: 12px;
+  border: 1px solid #a3a3a3;
+  margin: 0 0 18px 0;
 }
 
-caption {
+.Tabel caption {
   margin: 0 0 3px 0;
   color: #0d6895;
   text-align: left;
 }
 
-table {
-  border: 1px solid #a3a3a3;
-  margin: 0 0 18px 0;
-}
-
-table, td, th {
+.Tabel,
+.Tabel td,
+.Tabel th {
   margin: 0;
   padding: 0;
   text-align: right;
@@ -72,15 +68,17 @@ table, td, th {
   border-spacing: 0;
 }
 
-tr {
+.Tabel tr {
   background: #ecedd1;
 }
 
-table tr th:first-child {
-  text-align: left;
+.Tabel th,
+.Tabel td {
+  border: 1px solid white;
+  padding: 3px 10px;
 }
 
-table th {
+.Tabel th {
   background: #00405c;
   color: #fff;
   font-size: 12px;
@@ -88,12 +86,11 @@ table th {
   text-align: center;
 }
 
-table th, table td {
-  border: 1px solid white;
-  padding: 3px 10px;
+.Tabel td {
+  color: #333333;
 }
 
-table td {
-  color: #333333;
+.Tabel tr th:first-child {
+  text-align: left;
 }
 

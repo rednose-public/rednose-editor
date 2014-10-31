@@ -4,11 +4,32 @@
   line-height: 15pt;
 }
 
+.Registratienummer {
+  font-size: 6.5pt;
+  font-family: Verdana;
+  line-height: 9pt;
+}
+
 .NotaTitel {
   font-weight: bold;
   font-size: 18pt;
   font-family: Verdana;
   line-height: 30pt;
+  margin-bottom: 89pt;
+}
+
+.NotaChapeau {
+  font-style: italic;
+  font-size: 8.5pt;
+  font-family: Verdana;
+  line-height: 15pt;
+}
+
+.NotaInhoud {
+  font-weight: bold;
+  font-size: 18pt;
+  font-family: Verdana;
+  line-height: 18pt;
   margin-bottom: 89pt;
 }
 
@@ -38,33 +59,82 @@
   margin-bottom: 15pt;
 }
 
-/* Table style */
+.NotaKop4 {
+  font-style: italic;
+  font-size: 8.5pt;
+  font-family: Verdana;
+  line-height: 15pt;
+}
 
-table,
-table td,
-table th {
+.NotaBijlage {
+  font-weight: bold;
+  font-size: 18pt;
+  font-family: Verdana;
+  line-height: 18pt;
+  margin-bottom: 89pt;
+}
+
+.NotaDisclaimerteksten {
+  font-size: 6.5pt;
+  font-family: Verdana;
+  line-height: 12.5pt;
+}
+
+.Metadata {
+  font-size: 8.5pt;
+  font-family: Lucida Console;
+  background: #BFBFBF;
+  line-height: 15pt;
+  margin-top: 15pt;
+}
+
+.VoorbladTitel {
+  font-weight: bold;
+  font-size: 18pt;
+  font-family: Verdana;
+  line-height: 26pt;
+}
+
+.VoorbladChapeau {
+  font-style: italic;
+  font-size: 8.5pt;
+  font-family: Verdana;
+  line-height: 15pt;
+}
+
+.VoorbladDisclaimerteksten {
+  font-size: 8.5pt;
+  font-family: Verdana;
+  line-height: 15pt;
+}
+
+.NotaTussenkop {
+  font-weight: bold;
+  font-size: 8.5pt;
+  font-family: Verdana;
+  line-height: 15pt;
+  margin-top: 15pt;
+  margin-bottom: 0pt;
+}
+
+.Tabel, .Tabel th, .Tabel td {
   table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
   vertical-align: top;
-}
-
-.Tabel,
-.Tabel th,
-.Tabel td {
   font-size: 8.5pt;
   font-family: Verdana;
-  line-height: 15pt;
-  border: 1px solid #ffffff;
   background: #ecedd1;
   text-align: right;
+  line-height: 15pt;
+  border: 1px solid #ffffff;
 }
 
 .Tabel th {
-  background: #00405c;
-  color: #fff;
   font-weight: bold;
+  background: #00405c;
+  color: #ffffff;
   text-align: center;
 }
 
@@ -72,13 +142,11 @@ table th {
   font-weight: bold;
 }
 
-.Tabel th:first-child,
-.Tabel td:first-child {
+.Tabel th:first-child, .Tabel td:first-child {
   text-align: left;
 }
 
-.Tabel th:last-child,
-.Tabel td:last-child {
+.Tabel th:last-child, .Tabel td:last-child {
   font-weight: bold;
 }
 

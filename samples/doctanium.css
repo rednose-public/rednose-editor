@@ -40,77 +40,52 @@
 
 /* Table style */
 
-border -> border_color
-background -> background-color
-font-weight: bold -> bold
-color -> font_color
-text-align -> text_position
-/*Whole table*/
-/*font-family: Verdana;*/
-/*font-size: 8.5pt;*/
-/*line-height: 15pt;*/
-/*border: 1px solid white;*/
-/*text-align: right;*/
-
-/*Header row*/
-/*background: #00405c;*/
-/*color: #fff;*/
-/*font-weight: bold;*/
-/*text-align: center;*/
-
-/*First column*/
-/*background: #00405c;*/
-/*text-align: left;*/
-
-/*Top left cell*/
-/*text-align: left;*/
-
-/*Default to initial Word styling: 100% width and evenly spaced columns */
-.Tabel {
+table,
+table td,
+table th {
   table-layout: fixed;
-  font-family: Verdana;
   width: 100%;
-  color: #000;
-  line-height: 18px;
-  font-size: 12px;
-  border: 1px solid #a3a3a3;
-  margin: 0 0 18px 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  vertical-align: top;
 }
 
 .Tabel,
-.Tabel td,
-.Tabel th {
-  margin: 0;
-  padding: 0;
-  text-align: right;
-  vertical-align: top;
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-.Tabel tr {
-  background: #ecedd1;
-}
-
 .Tabel th,
 .Tabel td {
-  border: 1px solid white;
-  padding: 3px 10px;
+  font-size: 8.5pt;
+  font-family: Verdana;
+  line-height: 15pt;
+  border: 1px solid #ffffff;
+  background: #ecedd1;
+  text-align: right;
 }
 
 .Tabel th {
   background: #00405c;
   color: #fff;
-  font-size: 12px;
   font-weight: bold;
   text-align: center;
 }
 
-.Tabel td {
-  color: #333333;
+.Tabel tr:last-child td {
+  font-weight: bold;
+}
+
+.Tabel th:first-child,
+.Tabel td:first-child {
+  text-align: left;
+}
+
+.Tabel th:last-child,
+.Tabel td:last-child {
+  font-weight: bold;
 }
 
 .Tabel tr th:first-child {
   text-align: left;
 }
 
+.Tabel tr:last-child td:first-child {
+  font-weight: normal;
+}

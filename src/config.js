@@ -18,7 +18,7 @@ CKEDITOR.editorConfig = function( config ) {
         'enterkey,' +
         'entities,' +
         'floatingspace,' +
-        'format,' +
+        //'format,' +
         'htmlwriter,' +
         'image,' +
         'link,' +
@@ -28,7 +28,7 @@ CKEDITOR.editorConfig = function( config ) {
         'pastetext,' +
         'quicktable,' +
         'sourcearea,' +
-        //'stylescombo,' +
+        'stylescombo,' +
         'tab,' +
         'table,' +
         'tabletools,' +

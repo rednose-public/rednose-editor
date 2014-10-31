@@ -1,3 +1,43 @@
+.Standaard {
+  font-size: 8.5pt;
+  font-family: Verdana;
+  line-height: 15pt;
+}
+
+.NotaTitel {
+  font-weight: bold;
+  font-size: 18pt;
+  font-family: Verdana;
+  line-height: 30pt;
+  margin-bottom: 89pt;
+}
+
+.NotaKop1 {
+  font-weight: bold;
+  font-size: 18pt;
+  font-family: Verdana;
+  line-height: 18pt;
+  margin-bottom: 89pt;
+}
+
+.NotaKop2 {
+  font-weight: bold;
+  font-size: 11pt;
+  font-family: Verdana;
+  line-height: 15pt;
+  margin-top: 30pt;
+  margin-bottom: 15pt;
+}
+
+.NotaKop3 {
+  font-weight: bold;
+  font-size: 8.5pt;
+  font-family: Verdana;
+  line-height: 15pt;
+  margin-top: 15pt;
+  margin-bottom: 15pt;
+}
+
 /*Default to initial Word styling: 100% width and evenly spaced columns */
 table {
   table-layout: fixed;

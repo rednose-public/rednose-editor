@@ -158,10 +158,19 @@
     </table>
 </textarea>
 <script>
-        CKEDITOR.replace('editor', {
-            contentsCss: 'editor.css',
-            height: 400
-        });
-    </script>
+    CKEDITOR.stylesSet.add('doctanium', [
+        {name: 'Standaard', element: 'p', attributes: {'class': 'Standaard'}},
+        {name: 'NotaTitel', element: 'p', attributes: {'class': 'NotaTitel'}},
+        {name: 'NotaKop1', element: 'p', attributes: {'class': 'NotaKop1'}},
+        {name: 'NotaKop2', element: 'p', attributes: {'class': 'NotaKop2'}},
+        {name: 'NotaKop3', element: 'p', attributes: {'class': 'NotaKop3'}}
+    ]);
+
+    CKEDITOR.replace('editor', {
+        contentsCss: 'doctanium.css',
+        stylesSet: 'doctanium',
+        height: 400
+    });
+</script>
 </body>
 <html>

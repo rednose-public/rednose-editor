@@ -39,6 +39,7 @@
 }
 
 /* Table style */
+
 /*Default to initial Word styling: 100% width and evenly spaced columns */
 .Tabel {
   table-layout: fixed;

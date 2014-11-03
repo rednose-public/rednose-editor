@@ -1,0 +1,14 @@
+{
+  "name": "quicktable",
+  "homepage": "https://github.com/ufdada/quicktable",
+  "version": "1.0.5",
+  "_release": "1.0.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.5",
+    "commit": "2c5cb8265589200504d14734950d5d7422f22563"
+  },
+  "_source": "https://github.com/ufdada/quicktable.git",
+  "_target": "v1.0.5",
+  "_originalSource": "https://github.com/ufdada/quicktable.git"
+}

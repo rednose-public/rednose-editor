@@ -21,7 +21,6 @@ CKEDITOR.editorConfig = function( config ) {
         //'format,' +
         'htmlwriter,' +
         'image,' +
-        'link,' +
         'list,' +
         'magicline,' +
         'pastefromword,' +

@@ -2,8 +2,8 @@
 
 <html>
 <head>
-    <!--<script src="../stage/ckeditor.js"></script>-->
-    <script src="../dist/ckeditor/ckeditor.js"></script>
+    <script src="../stage/ckeditor.js"></script>
+    <!--<script src="../dist/ckeditor/ckeditor.js"></script>-->
 </head>
 <body>
 <textarea id="editor">
@@ -149,6 +149,7 @@
     ]);
 
     CKEDITOR.replace('editor', {
+        default_table_class: 'Tabel',
         contentsCss: 'doctanium.css',
         stylesSet: 'doctanium',
         height: 550

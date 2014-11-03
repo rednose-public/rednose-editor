@@ -28,6 +28,14 @@
             },
 
             init: function() {
+                var img = this.element.findOne('img');
+
+                var url = img && img.getAttribute('src');
+
+                if (url) {
+                    this.setData('url', url);
+                }
+
                 var width = this.element.getStyle( 'width' );
                 if ( width )
                     this.setData( 'width', width );

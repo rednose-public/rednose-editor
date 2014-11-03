@@ -1,7 +1,7 @@
 ﻿CKEDITOR.dialog.add( 'image', function( editor ) {
     return {
-        title: 'Edit Simple Box',
-        minWidth: 200,
+        title: 'Edit Image',
+        minWidth: 310,
         minHeight: 100,
         contents: [
             {

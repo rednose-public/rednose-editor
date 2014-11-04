@@ -119,7 +119,7 @@ figure { margin: 0;}
   margin-bottom: 0pt;
 }
 
-.Tabel, .Tabel th, .Tabel td {
+.Tabel, .Tabel td {
   table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
@@ -134,7 +134,7 @@ figure { margin: 0;}
   border: 1px solid #ffffff;
 }
 
-.Tabel th {
+.Tabel tr:first-child td {
   font-weight: bold;
   background: #00405c;
   color: #ffffff;
@@ -145,15 +145,15 @@ figure { margin: 0;}
   font-weight: bold;
 }
 
-.Tabel th:first-child, .Tabel td:first-child {
+.Tabel td:first-child {
   text-align: left;
 }
 
-.Tabel th:last-child, .Tabel td:last-child {
+.Tabel td:last-child {
   font-weight: bold;
 }
 
-.Tabel tr th:first-child {
+.Tabel tr:first-child td:first-child {
   text-align: left;
 }
 

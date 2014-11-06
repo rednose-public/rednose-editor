@@ -8,7 +8,7 @@
 
         editor.widgets.add( 'image', {
 
-            button: 'Create a simple box',
+            //button: 'Create a simple box',
 
             template:
                 '<figure>' +
@@ -21,7 +21,7 @@
 
             requiredContent: 'figure',
 
-            dialog: 'image',
+            //dialog: 'image',
 
             upcast: function( element ) {
                 return element.name == 'figure';

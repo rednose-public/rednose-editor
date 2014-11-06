@@ -8,11 +8,11 @@
 
         editor.widgets.add( 'image', {
 
-            //button: 'Create a simple box',
+            button: 'Insert an image',
 
             template:
                 '<figure>' +
-                    '<img src="http://verantwoordingsonderzoek.rekenkamer.nl/sites/default/files/images/2012-ienm-bi-begroting-grafiek.png">' +
+                    '<img src="">' +
                 '</figure>',
 
             allowedContent:
@@ -21,7 +21,7 @@
 
             requiredContent: 'figure',
 
-            //dialog: 'image',
+            dialog: 'image',
 
             upcast: function( element ) {
                 return element.name == 'figure';
@@ -29,36 +29,19 @@
 
             init: function() {
                 var img = this.element.findOne('img');
-
                 var url = img && img.getAttribute('src');
 
                 if (url) {
                     this.setData('url', url);
                 }
-
-                var width = this.element.getStyle( 'width' );
-                if ( width )
-                    this.setData( 'width', width );
-                if ( this.element.hasClass( 'align-left' ) )
-                    this.setData( 'align', 'left' );
-                if ( this.element.hasClass( 'align-right' ) )
-                    this.setData( 'align', 'right' );
-                if ( this.element.hasClass( 'align-center' ) )
-                    this.setData( 'align', 'center' );
             },
 
             data: function() {
+                var img = this.element.findOne('img');
 
-                if ( this.data.width == '' )
-                    this.element.removeStyle( 'width' );
-                else
-                    this.element.setStyle( 'width', this.data.width );
-
-                this.element.removeClass( 'align-left' );
-                this.element.removeClass( 'align-right' );
-                this.element.removeClass( 'align-center' );
-                if ( this.data.align )
-                    this.element.addClass( 'align-' + this.data.align );
+                if (this.data.url) {
+                    img.setAttribute('src', this.data.url);
+                }
             }
         } );
     }

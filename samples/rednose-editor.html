@@ -11,19 +11,21 @@
     <figure><img src="http://verantwoordingsonderzoek.rekenkamer.nl/sites/default/files/images/2012-ienm-bi-begroting-grafiek.png" /></figure>
     <p class="Standaard">Sed consequat volutpat rutrum. Curabitur lectus mauris, euismod ut eros nec, finibus consectetur quam. Nulla eget lacus at ipsum laoreet commodo non et quam. Aliquam sollicitudin leo ipsum, id scelerisque arcu sodales vulputate. Aliquam quis eleifend ipsum. Proin ante nisl, condimentum ac tortor non, molestie ullamcorper orci. Donec mattis nulla lacinia enim egestas, at sollicitudin lorem vehicula. Etiam vitae turpis in nulla tempor facilisis. Sed ullamcorper, sapien eu ultrices finibus, leo tortor facilisis risus, non accumsan ante nisl et diam. Fusce dapibus egestas quam, a volutpat ligula sollicitudin eu. Integer suscipit urna eu massa tristique vulputate. Aliquam varius quam ex, ac posuere metus sodales non. Fusce pharetra turpis in urna auctor hendrerit quis vitae ligula. Curabitur ac tellus et velit tincidunt fermentum.</p>
     <table class="Tabel">
-        <tbody>
+        <thead>
         <tr>
-            <td>Maatregel</td>
-            <td>Bonus/<br /> malus<br /> regeling</td>
-            <td>Slurptax</td>
-            <td>Differen-<br /> tiatie BPM</td>
-            <td>Lage<br /> MRB</td>
-            <td>Lage<br /> bijtelling</td>
-            <td>MIA</td>
-            <td>Vamil</td>
-            <td>KIA</td>
-            <td>Totaal</td>
+            <th>Maatregel</th>
+            <th>Bonus/<br /> malus<br /> regeling</th>
+            <th>Slurptax</th>
+            <th>Differen-<br /> tiatie BPM</th>
+            <th>Lage<br /> MRB</th>
+            <th>Lage<br /> bijtelling</th>
+            <th>MIA</th>
+            <th>Vamil</th>
+            <th>KIA</th>
+            <th>Totaal</th>
         </tr>
+        </thead>
+        <tbody>
         <tr>
             <td>Doelgroep</td>
             <td>Auto-<br /> koper</td>
@@ -146,6 +148,10 @@
         {name: 'NotaKop2', element: 'p', attributes: {'class': 'NotaKop2'}},
         {name: 'NotaKop3', element: 'p', attributes: {'class': 'NotaKop3'}}
     ]);
+
+    CKEDITOR.on( 'dialogDefinition', function( ev ) {
+        ev.data.definition.resizable = CKEDITOR.DIALOG_RESIZE_NONE;
+    });
 
     CKEDITOR.replace('editor', {
         default_table_class: 'Tabel',

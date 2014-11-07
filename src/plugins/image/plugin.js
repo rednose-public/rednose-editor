@@ -11,10 +11,10 @@
             editorFocus: 0,
             toolbar: 'insert,30',
             click: function () {
-                var form = document.getElementById('upload');
+                var form = document.getElementById('cke_upload_form');
                 form.reset();
 
-                var attachment = document.getElementById('test');
+                var attachment = document.getElementById('cke_upload_input');
                 attachment.click();
 
                 attachment.onchange = function () {
@@ -32,16 +32,27 @@
                 };
             }
         });
+
+        function create(htmlStr) {
+            var frag = document.createDocumentFragment(),
+                temp = document.createElement('div');
+            temp.innerHTML = htmlStr;
+            while (temp.firstChild) {
+                frag.appendChild(temp.firstChild);
+            }
+            return frag;
+        }
+
+        if (!document.getElementById('cke_upload_form')) {
+            var fragment = create('<form style="display: none;" id="cke_upload_form"><input id="cke_upload_input" type="file" accept="image/*"/></form>');
+            document.body.insertBefore(fragment, document.body.childNodes[0]);
+        }
     },
 
     init: function( editor ) {
         CKEDITOR.dialog.add( 'image', this.path + 'dialogs/image.js' );
 
         editor.widgets.add( 'image', {
-            exec: function () {
-                console.log(arguments);
-            },
-
             template:
                 '<figure>' +
                     '<img src="">' +

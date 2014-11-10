@@ -136,8 +136,6 @@
     </table>
     <p class="Standaard">Ut elementum porta mauris, quis lobortis diam pharetra suscipit. Integer molestie cursus pharetra. Nullam at efficitur urna, a iaculis enim. Nunc eget diam vitae ante venenatis tempus. Nulla vel tellus at tortor pretium venenatis. Sed suscipit mauris massa, non molestie nulla tincidunt id. Vestibulum et dolor nunc. In viverra iaculis ligula id varius. Fusce eget finibus ligula, in condimentum felis.</p>
 </textarea>
-<textarea id="editor2">
-</textarea>
 <script>
     CKEDITOR.stylesSet.add('doctanium', [
         {name: 'Tabel', element: 'table', attributes: { 'class': 'Tabel'}},
@@ -149,14 +147,12 @@
         {name: 'NotaKop3', element: 'p', attributes: {'class': 'NotaKop3'}}
     ]);
 
-    CKEDITOR.replace('editor', {
+    var editor = CKEDITOR.replace('editor', {
         default_table_class: 'Tabel',
         contentsCss: 'doctanium.css',
         stylesSet: 'doctanium',
         height: 550
     });
-
-    CKEDITOR.replace('editor2');
 </script>
 </body>
 <html>

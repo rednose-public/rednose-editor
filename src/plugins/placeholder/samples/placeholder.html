@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+-->
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Placeholder Plugin &mdash; CKEditor Sample</title>
+	<script src="../../../ckeditor.js"></script>
+	<script src="../../../samples/sample.js"></script>
+	<link rel="stylesheet" href="../../../samples/sample.css">
+	<meta name="ckeditor-sample-name" content="Placeholder plugin">
+	<meta name="ckeditor-sample-group" content="Plugins">
+	<meta name="ckeditor-sample-description" content="Using the Placeholder plugin to create uneditable sections that can only be created and modified with a proper dialog window.">
+</head>
+<body>
+	<h1 class="samples">
+		<a href="../../../samples/index.html">CKEditor Samples</a> &raquo; Using the Placeholder Plugin
+	</h1>
+	<div class="description">
+		<p>
+			This sample shows how to configure CKEditor instances to use the
+			<strong>Placeholder</strong> plugin that lets you insert read-only elements
+			into your content. To enter and modify read-only text, use the
+			<strong>Create Placeholder</strong> <span class="button_icon" data-icon="placeholder">&nbsp;</span> button and its matching dialog window.
+		</p>
+		<p>
+			To add a CKEditor instance that uses the <code>placeholder</code> plugin and a related
+			<strong>Create Placeholder</strong> <span class="button_icon" data-icon="placeholder">&nbsp;</span> toolbar button, insert the following JavaScript
+			call to your code:
+		</p>
+<pre class="samples">
+CKEDITOR.replace( '<em>textarea_id</em>', {
+	<strong>extraPlugins: 'placeholder',</strong>
+	toolbar: [ [ 'Source', 'Bold' ], [<strong>'CreatePlaceholder'</strong>] ]
+});</pre>
+		<p>
+			Note that <code><em>textarea_id</em></code> in the code above is the <code>id</code> attribute of
+			the <code>&lt;textarea&gt;</code> element to be replaced with CKEditor.
+		</p>
+	</div>
+	<form action="../../../samples/sample_posteddata.php" method="post">
+		<p>
+			<label for="editor1">
+				CKEditor using the <code>placeholder</code> plugin with its default configuration:
+			</label>
+			<textarea cols="80" id="editor1" name="editor1" rows="10">
+                <p class="NotaKop2"><span data-titlemark="true"><span data-placeholder="Titel_4U14vf2jwx">Titel_4U14vf2jwx</span></span></p>
+                <p class="MetadataVeld"><span data-placeholder="Parent">Parent</span> AAND <span contenteditable="false" data-placeholder="Index">Index</span></p>
+                <p class="Standaard"><span data-placeholder="Korte_beschrijving___samenvatting_44NlCc7Hmq">Korte_beschrijving___samenvatting_44NlCc7Hmq</span></p>
+                <p class="Standaard"><span data-placeholder="Bevindingen_CabCpdIb53">Bevindingen_CabCpdIb53</span></p>
+                <p class="Standaard"><span data-placeholder="Aanbevelingen_Algemene_Rekenkamer_YaYZetfhML">Aanbevelingen_Algemene_Rekenkamer_YaYZetfhML</span></p>
+                <p class="Standaard"><span data-placeholder="Reactie_van_de_minister_ORQCdsPlab">Reactie_van_de_minister_ORQCdsPlab</span></p>
+                <p class="Standaard"><span data-placeholder="Nawoord_Algemene_Rekenkamer_LMlXpLb7Xg">Nawoord_Algemene_Rekenkamer_LMlXpLb7Xg</span></p>
+                <p class="Standaard"><span data-placeholder="Artikel_bVr9VFDaWq">Artikel_bVr9VFDaWq</span></p>
+            </textarea>
+			<script>
+
+				CKEDITOR.replace( 'editor1', {
+					extraPlugins: 'placeholder'
+				});
+
+			</script>
+		</p>
+		<p>
+			<input type="submit" value="Submit">
+		</p>
+	</form>
+	<div id="footer">
+		<hr>
+		<p>
+			CKEditor - The text editor for the Internet - <a class="samples" href="http://ckeditor.com/">http://ckeditor.com</a>
+		</p>
+		<p id="copy">
+			Copyright &copy; 2003-2014, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico
+			Knabben. All rights reserved.
+		</p>
+	</div>
+</body>
+</html>

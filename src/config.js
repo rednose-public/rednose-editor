@@ -26,6 +26,7 @@ CKEDITOR.editorConfig = function( config ) {
         'noresize,' +
         'pastefromword,' +
         'pastetext,' +
+        'placeholder,' +
         'quicktable,' +
         'sourcearea,' +
         'stylescombo,' +

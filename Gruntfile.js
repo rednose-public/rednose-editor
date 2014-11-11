@@ -17,13 +17,6 @@ module.exports = function(grunt) {
                 ]
             },
 
-            quicktable: {
-                files: [
-                    {expand: true, cwd: 'src/plugins/quicktable', src: 'lang/**', dest: '<%= stageDir %>/plugins/quicktable'},
-                    {expand: true, cwd: 'src/plugins/quicktable', src: 'plugin.js', dest: '<%= stageDir %>/plugins/quicktable'}
-                ]
-            },
-
             plugins: {
                 files: [
                     {expand: true, cwd: 'src/plugins', src: '**/*', dest: '<%= stageDir %>/plugins'}
@@ -50,8 +43,8 @@ module.exports = function(grunt) {
 
         watch: {
             src: {
-                files: ['src/**/*.js'],
-                tasks: ['copy:config', 'copy:plugins', 'copy:quicktable']
+                files: ['src/**/*.*'],
+                tasks: ['copy:config', 'copy:plugins']
             }
         }
     });

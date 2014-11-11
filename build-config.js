@@ -41,6 +41,7 @@ var CKBUILDER_CONFIG = {
         noresize: 1,
 		pastefromword: 1,
 		pastetext: 1,
+        placeholder: 1,
         quicktable: 1,
 		sourcearea: 1,
 		stylescombo: 1,

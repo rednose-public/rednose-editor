@@ -35,21 +35,30 @@
 				// Widget code.
 				dialog: 'placeholder',
 				pathName: lang.pathName,
-				// We need to have wrapping element, otherwise there are issues in
-				// add dialog.
-				template: '<span class="cke_placeholder">[[]]</span>',
 
-				//downcast: function() {
-				//	return new CKEDITOR.htmlParser.text( '[[' + this.data.name + ']]' );
-				//},
+				template: '<span></span>',
+
+                upcast: function( element ) {
+                    return element.name === 'span' && element.attributes['data-placeholder'];
+                },
+
+				downcast: function(element) {
+                    element.children.length = 0;
+
+                    element.add( new CKEDITOR.htmlParser.text( this.data.name ) );
+
+				},
+
+                allowedContent: 'span[!data-placeholder]',
 
 				init: function() {
 					// Note that placeholder markup characters are stripped for the name.
-					this.setData( 'name', this.element.getText().slice( 2, -2 ) );
+					//this.setData( 'name', this.element.getText().slice( 2, -2 ) );
+                    this.setData( 'name', this.element.getAttribute('data-placeholder'));
 				},
 
-				data: function( data ) {
-					this.element.setText( '[[' + this.data.name + ']]' );
+				data: function() {
+					this.element.setText( '≪' + this.data.name + '≫' );
 				}
 			} );
 
@@ -59,38 +68,38 @@
 				toolbar: 'insert,5',
 				icon: 'placeholder'
 			} );
-		},
-
-		afterInit: function( editor ) {
-			var placeholderReplaceRegex = /\[\[([^\[\]])+\]\]/g;
-
-			editor.dataProcessor.dataFilter.addRules( {
-				text: function( text, node ) {
-					var dtd = node.parent && CKEDITOR.dtd[ node.parent.name ];
-
-					// Skip the case when placeholder is in elements like <title> or <textarea>
-					// but upcast placeholder in custom elements (no DTD).
-					if ( dtd && !dtd.span )
-						return;
-
-					return text.replace( placeholderReplaceRegex, function( match ) {
-						// Creating widget code.
-						var widgetWrapper = null,
-							innerElement = new CKEDITOR.htmlParser.element( 'span', {
-								'class': 'cke_placeholder'
-							} );
-
-						// Adds placeholder identifier as innertext.
-						innerElement.add( new CKEDITOR.htmlParser.text( match ) );
-						widgetWrapper = editor.widgets.wrapElement( innerElement, 'placeholder' );
-
-						// Return outerhtml of widget wrapper so it will be placed
-						// as replacement.
-						return widgetWrapper.getOuterHtml();
-					} );
-				}
-			} );
 		}
+
+		//afterInit: function( editor ) {
+		//	var placeholderReplaceRegex = /\[\[([^\[\]])+\]\]/g;
+        //
+		//	editor.dataProcessor.dataFilter.addRules( {
+		//		text: function( text, node ) {
+		//			var dtd = node.parent && CKEDITOR.dtd[ node.parent.name ];
+        //
+		//			// Skip the case when placeholder is in elements like <title> or <textarea>
+		//			// but upcast placeholder in custom elements (no DTD).
+		//			if ( dtd && !dtd.span )
+		//				return;
+        //
+		//			return text.replace( placeholderReplaceRegex, function( match ) {
+		//				// Creating widget code.
+		//				var widgetWrapper = null,
+		//					innerElement = new CKEDITOR.htmlParser.element( 'span', {
+		//						'class': 'cke_placeholder'
+		//					} );
+        //
+		//				// Adds placeholder identifier as innertext.
+		//				innerElement.add( new CKEDITOR.htmlParser.text( match ) );
+		//				widgetWrapper = editor.widgets.wrapElement( innerElement, 'placeholder' );
+        //
+		//				// Return outerhtml of widget wrapper so it will be placed
+		//				// as replacement.
+		//				return widgetWrapper.getOuterHtml();
+		//			} );
+		//		}
+		//	} );
+		//}
 	} );
 
 } )();

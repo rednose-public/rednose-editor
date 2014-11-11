@@ -47,7 +47,7 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 			</label>
 			<textarea cols="80" id="editor1" name="editor1" rows="10">
                 <p class="NotaKop2"><span data-titlemark="true"><span data-placeholder="Titel_4U14vf2jwx">Titel_4U14vf2jwx</span></span></p>
-                <p class="MetadataVeld"><span data-placeholder="Parent">Parent</span> AAND <span contenteditable="false" data-placeholder="Index">Index</span></p>
+                <p class="MetadataVeld"><span data-placeholder="Parent">Parent</span> AAND <span data-placeholder="Index">Index</span></p>
                 <p class="Standaard"><span data-placeholder="Korte_beschrijving___samenvatting_44NlCc7Hmq">Korte_beschrijving___samenvatting_44NlCc7Hmq</span></p>
                 <p class="Standaard"><span data-placeholder="Bevindingen_CabCpdIb53">Bevindingen_CabCpdIb53</span></p>
                 <p class="Standaard"><span data-placeholder="Aanbevelingen_Algemene_Rekenkamer_YaYZetfhML">Aanbevelingen_Algemene_Rekenkamer_YaYZetfhML</span></p>
@@ -57,8 +57,8 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
             </textarea>
 			<script>
 
-				CKEDITOR.replace( 'editor1', {
-					extraPlugins: 'placeholder'
+				var editor = CKEDITOR.replace( 'editor1', {
+//                    allowedContent: 'span[!data-placeholder]'
 				});
 
 			</script>

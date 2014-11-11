@@ -61,7 +61,38 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 //                    allowedContent: 'span[!data-placeholder]'
 				});
 
-			</script>
+                editor.on('pluginsLoaded', function () {
+                    editor.widgets.on( 'instanceCreated', function( evt ) {
+                        var widget = evt.data;
+
+                        widget.on('dialog', function ( evt ) {
+//                            console.log('dia');
+//                            evt.sender.setData('name', 'test!');
+//                            evt.cancel();
+                        });
+
+//                        widget.on('edit', function ( evt ) {
+//                            evt.sender.setData('name', 'test!');
+//                            evt.cancel();
+//                        });
+                    }, null, null, 1 );
+
+                    editor.widgets.on( 'instanceDestroyed', function( evt ) {
+//                        console.log( 'instance destroyed (id: ' + evt.data.id + ')' );
+                    }, null, null, 1 );
+
+                    for (var i in editor.widgets.instances) {
+                        var widget = editor.widgets.instances[i];
+
+                        widget.on( 'doubleclick', function( evt ) {
+                            evt.cancel();
+
+                            console.log(evt.sender.data);
+                            evt.sender.setData('name', 'test');
+                        }, null, null, 5 );
+                    }
+                });
+            </script>
 		</p>
 		<p>
 			<input type="submit" value="Submit">

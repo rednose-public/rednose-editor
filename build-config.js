@@ -43,6 +43,7 @@ var CKBUILDER_CONFIG = {
 		pastetext: 1,
         placeholder: 1,
         quicktable: 1,
+        sharedspace: 1,
 		sourcearea: 1,
 		stylescombo: 1,
 		tab: 1,

@@ -28,6 +28,7 @@ CKEDITOR.editorConfig = function( config ) {
         'pastetext,' +
         'placeholder,' +
         'quicktable,' +
+        'sharedspace,' +
         'sourcearea,' +
         'stylescombo,' +
         'tab,' +

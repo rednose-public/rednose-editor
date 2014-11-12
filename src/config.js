@@ -23,6 +23,7 @@ CKEDITOR.editorConfig = function( config ) {
         'image,' +
         'list,' +
         'magicline,' +
+        'marktitle,' +
         'noresize,' +
         'pastefromword,' +
         'pastetext,' +

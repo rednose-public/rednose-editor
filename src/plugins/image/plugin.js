@@ -53,6 +53,9 @@
         CKEDITOR.dialog.add( 'image', this.path + 'dialogs/image.js' );
 
         editor.widgets.add( 'image', {
+            // Disable drag and drop as its current implementation is buggy.
+            draggable: false,
+
             template:
                 '<figure>' +
                     '<img src="">' +

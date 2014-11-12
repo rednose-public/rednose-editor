@@ -38,6 +38,7 @@ var CKBUILDER_CONFIG = {
 		//link: 1,
 		list: 1,
 		magicline: 1,
+        marktitle: 1,
         noresize: 1,
 		pastefromword: 1,
 		pastetext: 1,

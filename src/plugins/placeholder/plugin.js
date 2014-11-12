@@ -18,13 +18,7 @@
 		icons: 'placeholder', // %REMOVE_LINE_CORE%
 		hidpi: true, // %REMOVE_LINE_CORE%
 
-		onLoad: function() {
-			// Register styles for placeholder widget frame.
-			CKEDITOR.addCss( '.cke_placeholder{background-color:#ff0}' );
-		},
-
 		init: function( editor ) {
-
 			var lang = editor.lang.placeholder;
 
 			// Register dialog.
@@ -32,7 +26,10 @@
 
 			// Put ur init code here.
 			editor.widgets.add( 'placeholder', {
-				// Widget code.
+                // Disable drag and drop as its current implementation is buggy.
+                draggable: false,
+
+                // Widget code.
 				dialog: 'placeholder',
 				pathName: lang.pathName,
 
@@ -69,37 +66,6 @@
 				icon: 'placeholder'
 			} );
 		}
-
-		//afterInit: function( editor ) {
-		//	var placeholderReplaceRegex = /\[\[([^\[\]])+\]\]/g;
-        //
-		//	editor.dataProcessor.dataFilter.addRules( {
-		//		text: function( text, node ) {
-		//			var dtd = node.parent && CKEDITOR.dtd[ node.parent.name ];
-        //
-		//			// Skip the case when placeholder is in elements like <title> or <textarea>
-		//			// but upcast placeholder in custom elements (no DTD).
-		//			if ( dtd && !dtd.span )
-		//				return;
-        //
-		//			return text.replace( placeholderReplaceRegex, function( match ) {
-		//				// Creating widget code.
-		//				var widgetWrapper = null,
-		//					innerElement = new CKEDITOR.htmlParser.element( 'span', {
-		//						'class': 'cke_placeholder'
-		//					} );
-        //
-		//				// Adds placeholder identifier as innertext.
-		//				innerElement.add( new CKEDITOR.htmlParser.text( match ) );
-		//				widgetWrapper = editor.widgets.wrapElement( innerElement, 'placeholder' );
-        //
-		//				// Return outerhtml of widget wrapper so it will be placed
-		//				// as replacement.
-		//				return widgetWrapper.getOuterHtml();
-		//			} );
-		//		}
-		//	} );
-		//}
 	} );
 
 } )();

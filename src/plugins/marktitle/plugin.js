@@ -1,15 +1,6 @@
 ( function() {
     'use strict';
 
-    function setToolbarStates() {
-        // Check if the selection is not empty.
-        var sel = editor.getSelection(),
-            ranges = sel.getRanges(),
-            selectionIsEmpty = sel.getType() == CKEDITOR.SELECTION_NONE || ( ranges.length == 1 && ranges[ 0 ].collapsed );
-
-        editor.getCommand( 'markTitle' ).setState( selectionIsEmpty ? CKEDITOR.TRISTATE_DISABLED : CKEDITOR.TRISTATE_OFF );
-    }
-
     CKEDITOR.plugins.add( 'marktitle', {
         requires: 'contextmenu',
         icons: 'marktitle', // %REMOVE_LINE_CORE%
@@ -20,6 +11,15 @@
         },
 
         init: function( editor ) {
+            function setToolbarStates() {
+                // Check if the selection is not empty.
+                var sel = editor.getSelection(),
+                    ranges = sel.getRanges(),
+                    selectionIsEmpty = sel.getType() == CKEDITOR.SELECTION_NONE || ( ranges.length == 1 && ranges[ 0 ].collapsed );
+
+                editor.getCommand( 'markTitle' ).setState( selectionIsEmpty ? CKEDITOR.TRISTATE_DISABLED : CKEDITOR.TRISTATE_OFF );
+            }
+
             editor.on( 'selectionChange', function( evt ) {
                 setToolbarStates();
             } );
@@ -72,10 +72,10 @@
             editor.addCommand( 'removeTitleMark', {
                 requiredContent: 'span[data-titlemark]',
                 exec: function( editor ) {
-                    var span = editor.getSelection().getStartElement();
+                    var marks = editor.document.find('span[data-titlemark]');
 
-                    if (span.getAttribute('data-titlemark')) {
-                        span.remove(true);
+                    for (var i = 0; i < marks.count(); i++) {
+                        marks.getItem(i).remove(true);
                     }
                 }
             } );
@@ -92,10 +92,13 @@
 
             // If the "contextmenu" plugin is loaded, register the listeners.
             if ( editor.contextMenu ) {
-                editor.contextMenu.addListener( function( element, selection, path ) {
-                    var span = path.contains( 'span', 1 );
+                editor.contextMenu.addListener( function() {
+                    var style = new CKEDITOR.style({
+                        element: 'span',
+                        attributes : { 'data-titlemark' : 'true' },
+                    })
 
-                    if (span && span.getAttribute('data-titlemark'))
+                    if (style.checkActive( editor.elementPath(), editor ))
                         return { marktitle: CKEDITOR.TRISTATE_OFF };
                 } );
             }

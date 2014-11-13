@@ -84,7 +84,15 @@
                         attributes : { 'data-titlemark' : 'true' },
                     })
 
+                    // The one on the cursor needs to be removed by the `style.remove` method to prevent errors for widgets.
                     style.remove(editor);
+
+                    // Remove any leftover marks.
+                    var marks = editor.document.find('span[data-titlemark]');
+
+                    for (var i = 0; i < marks.count(); i++) {
+                        marks.getItem(i).remove(true);
+                    }
                 }
             } );
 

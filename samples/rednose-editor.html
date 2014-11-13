@@ -153,6 +153,38 @@
         stylesSet: 'doctanium',
         height: 550
     });
+
+//    editor.on('pluginsLoaded', function () {
+//        editor.widgets.on( 'instanceCreated', function( evt ) {
+//            var widget = evt.data;
+//
+//            widget.on('edit', function ( evt ) {
+//                console.log('dia');
+//                evt.sender.setData('name', 'test!');
+//                evt.cancel();
+//            });
+//        });
+//    });
+
+//    editor.on('instanceReady', function () {
+//        editor.insertHtml('<span data-placeholder="lolololol">lolololol</span>');
+//
+//        var command = editor.getCommand('placeholder');
+//
+//        editor.execCommand('placeholder', {
+//            dialog: null
+//        });
+//
+//        command.on('exec', function (event) {
+//            var widget = editor.widgets.focused;
+//            console.log(widget);
+//            if (widget && widget.name === 'placeholder') {
+//                widget.setData({ name: 'lololol' });
+//                event.cancel();
+//            }
+//        });
+//        console.log(command);
+//    });
 </script>
 </body>
 <html>

@@ -43,7 +43,6 @@
                     element.children.length = 0;
 
                     element.add( new CKEDITOR.htmlParser.text( this.data.name ) );
-
 				},
 
                 allowedContent: 'span[!data-placeholder]',
@@ -52,6 +51,10 @@
 					// Note that placeholder markup characters are stripped for the name.
 					//this.setData( 'name', this.element.getText().slice( 2, -2 ) );
                     this.setData( 'name', this.element.getAttribute('data-placeholder'));
+
+                    this.on( 'contextMenu', function( evt ) {
+                        evt.data.placeholder = CKEDITOR.TRISTATE_OFF;
+                    } );
 				},
 
 				data: function() {
@@ -59,7 +62,18 @@
 				}
 			} );
 
-			editor.ui.addButton && editor.ui.addButton( 'CreatePlaceholder', {
+            // Register context menu option for editing widget.
+            if ( editor.contextMenu ) {
+                editor.addMenuGroup( 'placeholder', 10 );
+
+                editor.addMenuItem( 'placeholder', {
+                    label: 'Placeholder bewerken...',
+                    command: 'placeholder',
+                    group: 'placeholder'
+                } );
+            }
+
+            editor.ui.addButton && editor.ui.addButton( 'CreatePlaceholder', {
 				label: lang.toolbar,
 				command: 'placeholder',
 				toolbar: 'insert,5',

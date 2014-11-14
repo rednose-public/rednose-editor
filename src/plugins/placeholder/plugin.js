@@ -12,58 +12,55 @@
 'use strict';
 
 ( function() {
-	CKEDITOR.plugins.add( 'placeholder', {
-		requires: 'widget,dialog',
-		lang: 'ar,bg,ca,cs,cy,da,de,el,en,en-gb,eo,es,et,eu,fa,fi,fr,fr-ca,gl,he,hr,hu,id,it,ja,km,ko,ku,lv,nb,nl,no,pl,pt,pt-br,ru,si,sk,sl,sq,sv,th,tr,tt,ug,uk,vi,zh,zh-cn', // %REMOVE_LINE_CORE%
-		icons: 'placeholder', // %REMOVE_LINE_CORE%
-		hidpi: true, // %REMOVE_LINE_CORE%
+    CKEDITOR.plugins.add( 'placeholder', {
+        requires: 'widget,dialog',
+        lang: 'ar,bg,ca,cs,cy,da,de,el,en,en-gb,eo,es,et,eu,fa,fi,fr,fr-ca,gl,he,hr,hu,id,it,ja,km,ko,ku,lv,nb,nl,no,pl,pt,pt-br,ru,si,sk,sl,sq,sv,th,tr,tt,ug,uk,vi,zh,zh-cn', // %REMOVE_LINE_CORE%
+        icons: 'placeholder', // %REMOVE_LINE_CORE%
+        hidpi: true, // %REMOVE_LINE_CORE%
 
-		init: function( editor ) {
-			var lang = editor.lang.placeholder;
+        init: function( editor ) {
+            var lang = editor.lang.placeholder;
 
-			// Register dialog.
-			CKEDITOR.dialog.add( 'placeholder', this.path + 'dialogs/placeholder.js' );
+            // Register dialog.
+            CKEDITOR.dialog.add( 'placeholder', this.path + 'dialogs/placeholder.js' );
 
-			// Put ur init code here.
-			editor.widgets.add( 'placeholder', {
+            // Put ur init code here.
+            editor.widgets.add( 'placeholder', {
                 // Disable drag and drop as its current implementation is buggy.
-                draggable: true,
+                draggable: false,
 
                 // Widget code.
-				dialog: 'placeholder',
-				pathName: lang.pathName,
+                dialog: 'placeholder',
+                pathName: lang.pathName,
 
-                allowedContent: 'span[!data-placeholder], p[!data-placeholder]',
+                allowedContent: 'span[!data-placeholder]',
 
-				template: '<span></span>',
+                template: '<span></span>',
 
                 upcast: function( element ) {
-                    return (element.name === 'span'  || element.name === 'p') && element.attributes['data-placeholder'];
+                    return element.name === 'span' && element.attributes['data-placeholder'];
                 },
 
-				downcast: function(element) {
-                    if (this.data.inline === true) {
-                        return new CKEDITOR.htmlParser.text( '<span data-placeholder="' + this.data.name + '">' + this.data.name + '</span>' );
-                    }
+                downcast: function(element) {
+                    element.children.length = 0;
+                    element.add( new CKEDITOR.htmlParser.text( this.data.name ) );
+                },
 
-                    return new CKEDITOR.htmlParser.text( '<p data-placeholder="' + this.data.name + '">' + this.data.name + '</p>' );
-				},
-
-				init: function() {
-					// Note that placeholder markup characters are stripped for the name.
-					//this.setData( 'name', this.element.getText().slice( 2, -2 ) );
-                    this.setData( 'inline', this.element.getName() === 'span');
+                init: function() {
+                    // Note that placeholder markup characters are stripped for the name.
+                    //this.setData( 'name', this.element.getText().slice( 2, -2 ) );
                     this.setData( 'name', this.element.getAttribute('data-placeholder'));
 
                     this.on( 'contextMenu', function( evt ) {
                         evt.data.placeholder = CKEDITOR.TRISTATE_OFF;
                     } );
-				},
+                },
 
-				data: function() {
-					this.element.setText( '≪' + this.data.name + '≫' );
-				}
-			} );
+                data: function() {
+                    this.element.setAttribute( 'data-placeholder', this.data.name);
+                    this.element.setText( '≪' + this.data.name + '≫' );
+                }
+            } );
 
             // Register context menu option for editing widget.
             if ( editor.contextMenu ) {
@@ -77,12 +74,12 @@
             }
 
             editor.ui.addButton && editor.ui.addButton( 'CreatePlaceholder', {
-				label: lang.toolbar,
-				command: 'placeholder',
-				toolbar: 'insert,5',
-				icon: 'placeholder'
-			} );
-		}
-	} );
+                label: lang.toolbar,
+                command: 'placeholder',
+                toolbar: 'insert,5',
+                icon: 'placeholder'
+            } );
+        }
+    } );
 
 } )();

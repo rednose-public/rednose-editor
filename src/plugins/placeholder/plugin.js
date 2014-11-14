@@ -27,29 +27,32 @@
 			// Put ur init code here.
 			editor.widgets.add( 'placeholder', {
                 // Disable drag and drop as its current implementation is buggy.
-                draggable: false,
+                draggable: true,
 
                 // Widget code.
 				dialog: 'placeholder',
 				pathName: lang.pathName,
 
+                allowedContent: 'span[!data-placeholder], p[!data-placeholder]',
+
 				template: '<span></span>',
 
                 upcast: function( element ) {
-                    return element.name === 'span' && element.attributes['data-placeholder'];
+                    return (element.name === 'span'  || element.name === 'p') && element.attributes['data-placeholder'];
                 },
 
 				downcast: function(element) {
-                    element.children.length = 0;
+                    if (this.data.inline === true) {
+                        return new CKEDITOR.htmlParser.text( '<span data-placeholder="' + this.data.name + '">' + this.data.name + '</span>' );
+                    }
 
-                    element.add( new CKEDITOR.htmlParser.text( this.data.name ) );
+                    return new CKEDITOR.htmlParser.text( '<p data-placeholder="' + this.data.name + '">' + this.data.name + '</p>' );
 				},
-
-                allowedContent: 'span[!data-placeholder]',
 
 				init: function() {
 					// Note that placeholder markup characters are stripped for the name.
 					//this.setData( 'name', this.element.getText().slice( 2, -2 ) );
+                    this.setData( 'inline', this.element.getName() === 'span');
                     this.setData( 'name', this.element.getAttribute('data-placeholder'));
 
                     this.on( 'contextMenu', function( evt ) {

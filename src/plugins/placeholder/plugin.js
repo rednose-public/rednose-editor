@@ -19,6 +19,9 @@
         hidpi: true, // %REMOVE_LINE_CORE%
 
         init: function( editor ) {
+            // Allow empty spans
+            CKEDITOR.dtd.$removeEmpty.span = 0;
+
             var lang = editor.lang.placeholder;
 
             // Register dialog.
@@ -43,7 +46,6 @@
 
                 downcast: function(element) {
                     element.children.length = 0;
-                    element.add( new CKEDITOR.htmlParser.text( this.data.name ) );
                 },
 
                 init: function() {

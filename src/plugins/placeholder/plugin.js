@@ -18,7 +18,7 @@
         icons: 'placeholder', // %REMOVE_LINE_CORE%
         hidpi: true, // %REMOVE_LINE_CORE%
 
-        init: function( editor ) {
+        init: function() {
             // Allow empty spans
             CKEDITOR.dtd.$removeEmpty.span = 0;
 

@@ -19,15 +19,15 @@
 
                 var style = new CKEDITOR.style({
                     element: 'span',
-                    attributes : { 'data-titlemark' : 'true' },
-                })
+                    attributes : { 'data-titlemark' : 'true' }
+                });
 
                 var active = style.checkActive( editor.elementPath(), editor );
 
                 editor.getCommand( 'markTitle' ).setState( selectionIsEmpty || active ? CKEDITOR.TRISTATE_DISABLED : CKEDITOR.TRISTATE_OFF );
             }
 
-            editor.on( 'selectionChange', function( evt ) {
+            editor.on( 'selectionChange', function( ) {
                 setToolbarStates();
             } );
 
@@ -67,12 +67,10 @@
                         marks.getItem(i).remove(true);
                     }
 
-                    editor.applyStyle(
-                        new CKEDITOR.style({
-                            element: 'span',
-                            attributes : { 'data-titlemark' : 'true' },
-                        })
-                    );
+                    editor.applyStyle(new CKEDITOR.style({
+                        element: 'span',
+                        attributes : { 'data-titlemark' : 'true' }
+                    }));
                 }
             } );
 
@@ -81,8 +79,8 @@
                 exec: function( editor ) {
                     var style = new CKEDITOR.style({
                         element: 'span',
-                        attributes : { 'data-titlemark' : 'true' },
-                    })
+                        attributes : { 'data-titlemark' : 'true' }
+                    });
 
                     // The one on the cursor needs to be removed by the `style.remove` method to prevent errors for widgets.
                     style.remove(editor);
@@ -111,8 +109,8 @@
                 editor.contextMenu.addListener( function() {
                     var style = new CKEDITOR.style({
                         element: 'span',
-                        attributes : { 'data-titlemark' : 'true' },
-                    })
+                        attributes : { 'data-titlemark' : 'true' }
+                    });
 
                     if (style.checkActive( editor.elementPath(), editor ))
                         return { marktitle: CKEDITOR.TRISTATE_OFF };

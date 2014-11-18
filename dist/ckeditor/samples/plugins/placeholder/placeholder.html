@@ -46,52 +46,38 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 				CKEditor using the <code>placeholder</code> plugin with its default configuration:
 			</label>
 			<textarea cols="80" id="editor1" name="editor1" rows="10">
-                <p class="NotaKop2"><span data-titlemark="true"><span data-placeholder="Titel_4U14vf2jwx">Titel_4U14vf2jwx</span></span></p>
-                <p class="MetadataVeld"><span data-placeholder="Parent">Parent</span> AAND <span data-placeholder="Index">Index</span></p>
-                <p class="Standaard"><span data-placeholder="Korte_beschrijving___samenvatting_44NlCc7Hmq">Korte_beschrijving___samenvatting_44NlCc7Hmq</span></p>
-                <p class="Standaard"><span data-placeholder="Bevindingen_CabCpdIb53">Bevindingen_CabCpdIb53</span></p>
-                <p class="Standaard"><span data-placeholder="Aanbevelingen_Algemene_Rekenkamer_YaYZetfhML">Aanbevelingen_Algemene_Rekenkamer_YaYZetfhML</span></p>
-                <p class="Standaard"><span data-placeholder="Reactie_van_de_minister_ORQCdsPlab">Reactie_van_de_minister_ORQCdsPlab</span></p>
-                <p class="Standaard"><span data-placeholder="Nawoord_Algemene_Rekenkamer_LMlXpLb7Xg">Nawoord_Algemene_Rekenkamer_LMlXpLb7Xg</span></p>
-                <p class="Standaard"><span data-placeholder="Artikel_bVr9VFDaWq">Artikel_bVr9VFDaWq</span></p>
+                <content><p class="NotaKop1"><span data-titlemark="true"><span data-placeholder="Titel_gKbu3DDRPt"/></span></p>
+                    <p class="MetadataVeld">BOODSCHAP</p>
+                    <p class="Standaard"><span data-placeholder="Korte_beschrijving___samenvatting_gKbu3DDRPt"/></p><p class="Standaard"><span data-placeholder="Lees_meer_gKbu3DDRPt"/></p><p class="Standaard"><span data-placeholder="Bevindingen_gKbu3DDRPt"/></p><p class="Standaard"><span data-placeholder="Aanbevelingen_Algemene_Rekenkamer_gKbu3DDRPt"/></p><p class="Standaard"><span data-placeholder="Reactie_van_de_minister_gKbu3DDRPt"/></p><p class="Standaard"><span data-placeholder="Nawoord_Algemene_Rekenkamer_gKbu3DDRPt"/></p>
+
+
+
             </textarea>
 			<script>
+                CKEDITOR.dtd.$removeEmpty.span = 0;
 
-				var editor = CKEDITOR.replace( 'editor1', {
-//                    allowedContent: 'span[!data-placeholder]'
-				});
+                CKEDITOR.on('instanceReady', function (evt) {
+                    evt.editor.widgets.finalizeCreation = function (container) {
+                        // @param {CKEDITOR.dom.element}
+                        function isDomWidgetWrapper( element ) {
+                            return element.type == CKEDITOR.NODE_ELEMENT && element.hasAttribute( 'data-cke-widget-wrapper' );
+                        }
 
-                editor.on('pluginsLoaded', function () {
-                    editor.widgets.on( 'instanceCreated', function( evt ) {
-                        var widget = evt.data;
+                        var wrapper = container.getFirst();
+                        if ( wrapper && isDomWidgetWrapper( wrapper ) ) {
+                            this.editor.insertElement( wrapper );
 
-                        widget.on('dialog', function ( evt ) {
-//                            console.log('dia');
-//                            evt.sender.setData('name', 'test!');
-//                            evt.cancel();
-                        });
-
-//                        widget.on('edit', function ( evt ) {
-//                            evt.sender.setData('name', 'test!');
-//                            evt.cancel();
-//                        });
-                    }, null, null, 1 );
-
-                    editor.widgets.on( 'instanceDestroyed', function( evt ) {
-//                        console.log( 'instance destroyed (id: ' + evt.data.id + ')' );
-                    }, null, null, 1 );
-
-                    for (var i in editor.widgets.instances) {
-                        var widget = editor.widgets.instances[i];
-
-                        widget.on( 'doubleclick', function( evt ) {
-                            evt.cancel();
-
-                            console.log(evt.sender.data);
-                            evt.sender.setData('name', 'test');
-                        }, null, null, 5 );
-                    }
+                            var widget = this.getByElement( wrapper );
+                            // Fire postponed #ready event.
+                            widget.ready = true;
+                            widget.fire( 'ready' );
+                        }
+                    };
                 });
+
+				CKEDITOR.replace( 'editor1', {
+//                    allowedContent: true
+				});
             </script>
 		</p>
 		<p>

@@ -26,66 +26,65 @@
         height: 550
     });
 
-    //    CKEDITOR.on( 'instanceReady', function( evt ) {
-    //        var editor = evt.editor;
-    //
-    //        var dataProcessor = editor.dataProcessor,
-    //                dataFilter = dataProcessor && dataProcessor.dataFilter,
-    //                htmlFilter = dataProcessor && dataProcessor.htmlFilter;
-    //
-    //        // This rewrites incoming (GET, viewing) data
-    //        if (dataFilter) {
-    //            dataFilter.addRules({
-    //                elements: {
-    //                    'p': function (element) {
-    //                        console.log('p');
-    //                        element.attributes['class'] = 'Standaard';
-    //                        return element;
-    //                    }
-    //                }
-    //            });
-    //        }
-    //    });
+//    CKEDITOR.on( 'instanceReady', function( evt ) {
+//        var editor = evt.editor;
+//
+//        var dataProcessor = editor.dataProcessor,
+//                dataFilter = dataProcessor && dataProcessor.dataFilter,
+//                htmlFilter = dataProcessor && dataProcessor.htmlFilter;
+//
+//        // This rewrites incoming (GET, viewing) data
+//        if (dataFilter) {
+//            dataFilter.addRules({
+//                elements: {
+//                    'p': function (element) {
+//                        console.log('p');
+//                        element.attributes['class'] = 'Standaard';
+//                        return element;
+//                    }
+//                }
+//            });
+//        }
+//    });
 
-    CKEDITOR.on( 'instanceLoaded', function( evt ) {
-        var editor = evt.editor;
-
-        function fixDom( evt ) {
-            var editor = evt.editor;
-            var paragraphs = editor.document.find('p');
-
-            for (var i = 0; i < paragraphs.count(); i++) {
-                var p = paragraphs.getItem(i);
-
-                if (!p.getAttribute('class')) {
-                    p.addClass('Standaard');
-                }
-            }
-        }
-
-        editor.on( 'selectionChange', function( evt ) {
-            console.log('as');
-            if ( editor.readOnly )
-                return;
-
-            // Auto fixing on some document structure weakness to enhance usabilities. (#3190 and #3189)
-            var sel = editor.getSelection();
-            // Do it only when selection is not locked. (#8222)
-            if ( sel && !sel.isLocked ) {
-                var isDirty = editor.checkDirty();
-
-                // Lock undoM before touching DOM to prevent
-                // recording these changes as separate snapshot.
-                editor.fire( 'lockSnapshot' );
-                fixDom( evt );
-                editor.fire( 'unlockSnapshot' );
-
-                !isDirty && editor.resetDirty();
-            }
-        }, null, null, null, 1 );
-
-
-    } );
+//    CKEDITOR.on( 'instanceLoaded', function( evt ) {
+//        var editor = evt.editor;
+//
+//        function fixDom( evt ) {
+//            var editor = evt.editor;
+//            var paragraphs = editor.document.find('p');
+//
+//            for (var i = 0; i < paragraphs.count(); i++) {
+//                var p = paragraphs.getItem(i);
+//
+//                if (!p.getAttribute('class')) {
+//                    p.addClass('Standaard');
+//                }
+//            }
+//        }
+//
+//        editor.on( 'selectionChange', function( evt ) {
+//            if ( editor.readOnly )
+//                return;
+//
+//            // Auto fixing on some document structure weakness to enhance usabilities. (#3190 and #3189)
+//            var sel = editor.getSelection();
+//            // Do it only when selection is not locked. (#8222)
+//            if ( sel && !sel.isLocked ) {
+//                var isDirty = editor.checkDirty();
+//
+//                // Lock undoM before touching DOM to prevent
+//                // recording these changes as separate snapshot.
+//                editor.fire( 'lockSnapshot' );
+//                fixDom( evt );
+//                editor.fire( 'unlockSnapshot' );
+//
+//                !isDirty && editor.resetDirty();
+//            }
+//        }, null, null, null, 1 );
+//
+//
+//    } );
 </script>
 </body>
 <html>

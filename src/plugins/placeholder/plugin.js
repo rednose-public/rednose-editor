@@ -27,7 +27,6 @@
             // Register dialog.
             CKEDITOR.dialog.add( 'placeholder', this.path + 'dialogs/placeholder.js' );
 
-            // Put ur init code here.
             editor.widgets.add( 'placeholder', {
                 // Disable drag and drop as its current implementation is buggy.
                 draggable: false,
@@ -50,7 +49,6 @@
 
                 init: function() {
                     // Note that placeholder markup characters are stripped for the name.
-                    //this.setData( 'name', this.element.getText().slice( 2, -2 ) );
                     this.setData( 'name', this.element.getAttribute('data-placeholder'));
 
                     this.on( 'contextMenu', function( evt ) {
@@ -79,7 +77,15 @@
                 label: lang.toolbar,
                 command: 'placeholder',
                 toolbar: 'insert,5',
-                icon: 'placeholder'
+                icon: 'placeholder',
+                click: function () {
+                    var focused = editor.widgets.focused;
+
+                    // Quickfix to force insert mode for buttons.
+                    editor.widgets.focused = null;
+                    editor.execCommand('placeholder');
+                    editor.widgets.focused = focused;
+                }
             } );
         }
     } );

@@ -24,7 +24,7 @@
 
                 var active = style.checkActive( editor.elementPath(), editor );
 
-                editor.getCommand( 'markTitle' ).setState( selectionIsEmpty || active ? CKEDITOR.TRISTATE_DISABLED : CKEDITOR.TRISTATE_OFF );
+                editor.getCommand( 'markTitle' ).setState( selectionIsEmpty ? CKEDITOR.TRISTATE_DISABLED : ( active ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF ));
             }
 
             editor.on( 'selectionChange', function( ) {
@@ -61,16 +61,16 @@
                 allowedContent: 'span[data-titlemark]',
 
                 exec: function (editor) {
-                    var marks = editor.document.find('span[data-titlemark]');
+                    var state = this.state;
 
-                    for (var i = 0; i < marks.count(); i++) {
-                        marks.getItem(i).remove(true);
+                    editor.getCommand('removeTitleMark').exec();
+
+                    if (state === CKEDITOR.TRISTATE_OFF ) {
+                        editor.applyStyle(new CKEDITOR.style({
+                            element: 'span',
+                            attributes : { 'data-titlemark' : 'true' }
+                        }));
                     }
-
-                    editor.applyStyle(new CKEDITOR.style({
-                        element: 'span',
-                        attributes : { 'data-titlemark' : 'true' }
-                    }));
                 }
             } );
 

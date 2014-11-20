@@ -132,8 +132,8 @@
                     me = this,
                     data = {};
 
-                if (editor.config.default_table_class) {
-                    table.addClass(editor.config.default_table_class);
+                if (editor.config.default_table_style) {
+                    table.addClass(editor.config.default_table_style);
                 }
 
                 this.commitContent( data, table );

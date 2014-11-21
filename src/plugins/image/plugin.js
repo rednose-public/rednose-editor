@@ -67,7 +67,8 @@
 
             requiredContent: 'figure',
 
-            dialog: 'image',
+            // Dialog disabled for now
+            //dialog: 'image',
 
             upcast: function( element ) {
                 return element.name == 'figure';
@@ -96,16 +97,18 @@
             }
         } );
 
-        // Register context menu option for editing widget.
-        if ( editor.contextMenu ) {
-            editor.addMenuGroup( 'image', 10 );
+        // Dialog disabled for now
 
-            editor.addMenuItem( 'image', {
-                label: 'Eigenschappen afbeelding',
-                command: 'image',
-                group: 'image'
-            } );
-        }
+        // Register context menu option for editing widget.
+        //if ( editor.contextMenu ) {
+        //    editor.addMenuGroup( 'image', 10 );
+        //
+        //    editor.addMenuItem( 'image', {
+        //        label: 'Eigenschappen afbeelding',
+        //        command: 'image',
+        //        group: 'image'
+        //    } );
+        //}
 
         editor.ui.addButton && editor.ui.addButton( 'Image', {
             label: 'Afbeelding invoegen',

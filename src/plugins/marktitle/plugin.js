@@ -22,9 +22,10 @@
                     attributes : { 'data-titlemark' : 'true' }
                 });
 
-                var active = style.checkActive( editor.elementPath(), editor );
-
-                editor.getCommand( 'markTitle' ).setState( selectionIsEmpty ? CKEDITOR.TRISTATE_DISABLED : ( active ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF ));
+                try {
+                    var active = style.checkActive( editor.elementPath(), editor );
+                    editor.getCommand( 'markTitle' ).setState( selectionIsEmpty ? CKEDITOR.TRISTATE_DISABLED : ( active ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF ));
+                } catch (err) {}
             }
 
             editor.on( 'selectionChange', function( ) {

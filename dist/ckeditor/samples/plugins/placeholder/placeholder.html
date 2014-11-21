@@ -49,35 +49,9 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                 <content><p class="NotaKop1"><span data-titlemark="true"><span data-placeholder="Titel_gKbu3DDRPt"/></span></p>
                     <p class="MetadataVeld">BOODSCHAP</p>
                     <p class="Standaard"><span data-placeholder="Korte_beschrijving___samenvatting_gKbu3DDRPt"/></p><p class="Standaard"><span data-placeholder="Lees_meer_gKbu3DDRPt"/></p><p class="Standaard"><span data-placeholder="Bevindingen_gKbu3DDRPt"/></p><p class="Standaard"><span data-placeholder="Aanbevelingen_Algemene_Rekenkamer_gKbu3DDRPt"/></p><p class="Standaard"><span data-placeholder="Reactie_van_de_minister_gKbu3DDRPt"/></p><p class="Standaard"><span data-placeholder="Nawoord_Algemene_Rekenkamer_gKbu3DDRPt"/></p>
-
-
-
             </textarea>
 			<script>
-                CKEDITOR.dtd.$removeEmpty.span = 0;
-
-                CKEDITOR.on('instanceReady', function (evt) {
-                    evt.editor.widgets.finalizeCreation = function (container) {
-                        // @param {CKEDITOR.dom.element}
-                        function isDomWidgetWrapper( element ) {
-                            return element.type == CKEDITOR.NODE_ELEMENT && element.hasAttribute( 'data-cke-widget-wrapper' );
-                        }
-
-                        var wrapper = container.getFirst();
-                        if ( wrapper && isDomWidgetWrapper( wrapper ) ) {
-                            this.editor.insertElement( wrapper );
-
-                            var widget = this.getByElement( wrapper );
-                            // Fire postponed #ready event.
-                            widget.ready = true;
-                            widget.fire( 'ready' );
-                        }
-                    };
-                });
-
-				CKEDITOR.replace( 'editor1', {
-//                    allowedContent: true
-				});
+				CKEDITOR.replace( 'editor1');
             </script>
 		</p>
 		<p>

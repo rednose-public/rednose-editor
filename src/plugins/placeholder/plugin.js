@@ -35,7 +35,7 @@
                 dialog: 'placeholder',
                 pathName: lang.pathName,
 
-                allowedContent: 'span[!data-placeholder]',
+                allowedContent: 'span[!data-placeholder,!data-type,data-value,data-binding,data-collapsible]',
 
                 template: '<span></span>',
 
@@ -50,6 +50,12 @@
                 init: function() {
                     // Note that placeholder markup characters are stripped for the name.
                     this.setData( 'name', this.element.getAttribute('data-placeholder'));
+                    this.setData( 'type', this.element.getAttribute('data-type'));
+
+                    this.setData( 'value', this.element.getAttribute('data-value') || null);
+                    this.setData( 'binding', this.element.getAttribute('data-binding') || null);
+
+                    this.setData( 'collapsible', this.element.hasAttribute('data-collapsible'));
 
                     this.on( 'contextMenu', function( evt ) {
                         evt.data.placeholder = CKEDITOR.TRISTATE_OFF;
@@ -58,6 +64,26 @@
 
                 data: function() {
                     this.element.setAttribute( 'data-placeholder', this.data.name);
+                    this.element.setAttribute( 'data-type', this.data.type);
+
+                    if (this.data.value) {
+                        this.element.setAttribute( 'data-value', this.data.value);
+                    } else {
+                        this.element.hasAttribute( 'data-value' ) && this.element.removeAttribute( 'data-value' );
+                    }
+
+                    if (this.data.binding) {
+                        this.element.setAttribute( 'data-binding', this.data.binding);
+                    } else {
+                        this.element.hasAttribute( 'data-binding' ) && this.element.removeAttribute( 'data-binding' );
+                    }
+
+                    if (this.data.collapsible) {
+                        this.element.setAttribute( 'data-collapsible', this.data.collapsible);
+                    } else {
+                        this.element.hasAttribute( 'data-collapsible' ) && this.element.removeAttribute( 'data-collapsible' );
+                    }
+
                     this.element.setText( '≪' + this.data.name + '≫' );
                 }
             } );
@@ -89,5 +115,4 @@
             } );
         }
     } );
-
 } )();

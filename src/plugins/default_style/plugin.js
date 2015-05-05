@@ -1,10 +1,10 @@
 CKEDITOR.plugins.add( 'default_style', {
-    init: function() {
+    init: function(ed) {
         CKEDITOR.on('instanceReady', function (evt) {
             var defaultStyle = null;
 
             if (editor.config.default_paragraph_style) {
-                defaultStyle = editor.config.default_paragraph_style;
+                defaultStyle = ed.config.default_paragraph_style;
 
                 evt.editor.on('change', function (e) {
                     var newParagraph = e.editor.getSelection().getStartElement();

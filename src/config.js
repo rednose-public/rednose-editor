@@ -24,6 +24,7 @@ CKEDITOR.editorConfig = function( config ) {
         'list,' +
         'magicline,' +
         'marktitle,' +
+        'default_style,' +
         'noresize,' +
         'pastefromword,' +
         'pastetext,' +

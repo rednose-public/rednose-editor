@@ -35,7 +35,7 @@
                 dialog: 'placeholder',
                 pathName: lang.pathName,
 
-                allowedContent: 'span[!data-placeholder,!data-type,data-value,data-binding,data-collapsible,data-static]',
+                allowedContent: 'span[!data-placeholder,!data-type,data-value,data-binding,data-collapsible]',
 
                 template: '<span></span>',
 
@@ -56,12 +56,6 @@
                     this.setData( 'binding', this.element.getAttribute('data-binding') || null);
 
                     this.setData( 'collapsible', this.element.hasAttribute('data-collapsible'));
-
-                    if (this.element.hasAttribute('data-static')) {
-                        this.setData( 'placeholderKind', 'Static');
-                    } else {
-                        this.setData( 'placeholderKind', 'Dynamic');
-                    }
 
                     this.on( 'contextMenu', function( evt ) {
                         evt.data.placeholder = CKEDITOR.TRISTATE_OFF;
@@ -90,9 +84,7 @@
                         this.element.hasAttribute( 'data-collapsible' ) && this.element.removeAttribute( 'data-collapsible' );
                     }
 
-                    if (this.data.placeholderKind && this.data.placeholderKind === 'Static') {                        
-                        this.element.setAttribute( 'data-static', 'true');
-                        
+                    if (this.data.type && this.data.type === 'static') {
                         this.element.setText( '[' + this.data.name + ']' );
                     } else {
                         this.element.setText( '≪' + this.data.name + '≫' );

@@ -30,14 +30,14 @@ CKEDITOR.dialog.add( 'placeholder', function( editor ) {
 						id: 'placeholderKind',
 						type: 'select',
 						label: 'Type',
-						items: [['Dynamic'], ['Static']],
+						items: [['Text', 'text'], ['Richt text', 'html'], ['Date', 'date'], ['Static', 'static']],
 						required: true,
 						validate: CKEDITOR.dialog.validate.regex( validNameRegex, lang.invalidName ),
 						setup: function( widget ) {
-							this.setValue( widget.data.placeholderKind );
+							this.setValue( widget.data.type );
 						},
 						commit: function( widget ) {
-							widget.setData( 'placeholderKind', this.getValue() );
+							widget.setData( 'type', this.getValue() );
 						}
 					},
 

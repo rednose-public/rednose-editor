@@ -22,6 +22,9 @@
             // Allow empty spans
             CKEDITOR.dtd.$removeEmpty.span = 0;
 
+            // Add static placeholder styling
+            CKEDITOR.addCss( 'span[data-type=static] { background-color: #e6e6e6; }' );
+
             var lang = editor.lang.placeholder;
 
             // Register dialog.

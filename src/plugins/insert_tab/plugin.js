@@ -1,8 +1,8 @@
 CKEDITOR.plugins.add( 'insert_tab', {
 
     requires: 'widget',
-    icons: 'insertTab',
-    hidpi: false,
+    icons: 'insert_tab', // %REMOVE_LINE_CORE%
+    hidpi: false, // %REMOVE_LINE_CORE%
 
     init: function(editor) {
         // Allow empty spans
@@ -42,7 +42,7 @@ CKEDITOR.plugins.add( 'insert_tab', {
             label: 'Insert tab',
             command: 'createTab',
             toolbar: 'insert,5',
-            icon: 'insertTab',
+            icon: 'insert_tab',
             click: function () {
                 var focused = editor.widgets.focused;
 

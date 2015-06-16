@@ -49,6 +49,7 @@ var CKBUILDER_CONFIG = {
 		sourcearea: 1,
 		stylescombo: 1,
 		tab: 1,
+		insert_tab: 1,
 		table: 1,
 		tabletools: 1,
 		toolbar: 1,

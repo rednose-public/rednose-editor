@@ -4,7 +4,7 @@ CKEDITOR.plugins.add( 'insert_tab', {
     icons: 'insertTab',
     hidpi: false,
 
-    init: function(ed) {
+    init: function(editor) {
         // Allow empty spans
         CKEDITOR.dtd.$removeEmpty.span = 0;
 
@@ -38,7 +38,7 @@ CKEDITOR.plugins.add( 'insert_tab', {
         });
         
         // Add button
-        ed.ui.addButton && editor.ui.addButton('CreateTab', {
+        editor.ui.addButton && editor.ui.addButton('CreateTab', {
             label: 'Insert tab',
             command: 'createTab',
             toolbar: 'insert,5',

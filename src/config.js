@@ -34,6 +34,7 @@ CKEDITOR.editorConfig = function( config ) {
         'sourcearea,' +
         'stylescombo,' +
         'tab,' +
+        'insert_tab,' +
         'table,' +
         'tabletools,' +
         'toolbar,' +

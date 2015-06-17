@@ -10,34 +10,42 @@ CKEDITOR.plugins.add( 'insert_tab', {
         // Allow empty spans
         CKEDITOR.dtd.$removeEmpty.span = 0;
 
+        // Fire the change event to force the  width calculation.
+        CKEDITOR.on('instanceReady', function  () {
+            editor.fire('change');
+        });
+
         CKEDITOR.addCss('span.tab { color: #a1a1a1; !important }');
 
         // Calculate the tab element width
         editor.on('change', function () {
             if (tabItems.length > 0) {
-                var done = false;
-                
+                var done = false,
+                    loopCount = 0;
+
                 // Has a width property changed?
                 for (var i in tabItems) {
                     var p = tabItems[i].getAscendant('p');
                     if (p && tabItems[i].data('style') !== p.getAttribute('class')) {
                         tabItems[i].setAttribute('style', '');
-                        
+
                         tabItems[i].data('original-width', tabItems[i].getSize('width'));
                         tabItems[i].data('style', tabItems[i].getAscendant('p').getAttribute('class'))
                     }
                 }
-                
+
                 while (!done) {
                     done = true;
-                    
+
+                    loopCount++;
+
                     for (var i in tabItems) {
                         var rect       = tabItems[i].getClientRect(),
                             leftBuffer = 0,
                             column     = 0,
                             right      = 0,
                             width      = 0;
-                                                
+
                         // Use the original width
                         rect.width = tabItems[i].data('original-width');
 
@@ -45,21 +53,26 @@ CKEDITOR.plugins.add( 'insert_tab', {
                             leftBuffer += parseFloat(rect.width);
 
                             column++;
-                            
+
                             // Mjuh nevermind...
                             if (column > 99) {
                                 return;
                             }
                         }
-                        
+
                         right = rect.width * column;
                         width = right - rect.left;
 
                         if (tabItems[i].getAttribute('style') !== 'width: ' + width + 'px') {
                             done = false;
                         }
-                        
+
                         tabItems[i].setAttribute('style', 'width: ' + width + 'px');
+                    }
+
+                    // Crash protection.
+                    if (loopCount > 999) {
+                        done = true;
                     }
                 }
             }
@@ -79,23 +92,32 @@ CKEDITOR.plugins.add( 'insert_tab', {
 
             downcast: function(element) {
                 element.children.length = 0;
-                
+
                 tabItems = [];
             },
-            
+
             init: function () {
                 this.element.setAttribute('class', 'tab');
                 this.element.setAttribute('data-tab', 'true');
                 this.element.setHtml('&not;');
 
+                // Bind this plugin to the TAB key.
+                editor.on('key', function(e) {
+                    if (e.data.keyCode == 9) {
+                        editor.execCommand('createTab');
+
+                        e.cancel();
+                    }
+                });
+
                 tabItems.push(this.element);
             },
-                        
+
             data: function () {
                 this.element.setAttribute('data-tab', 'true');
             }
         });
-        
+
         // Add button
         editor.ui.addButton && editor.ui.addButton('CreateTab', {
             label: 'Insert tab',

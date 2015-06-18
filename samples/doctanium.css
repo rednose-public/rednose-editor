@@ -23,11 +23,13 @@ body {
 }
 
 .Standaard {
-    padding-left: 100px;
+    margin-left: 30px;
+    margin-right: 10px;
+
 }
 
 .Standaard::before {
-  padding-left: -50px;
+  margin-left: -10px;
   counter-increment: level1;            /* Increments only this instance
                                             of the section counter */
   content: counter(level1) ".";    /* Adds the value of all instances

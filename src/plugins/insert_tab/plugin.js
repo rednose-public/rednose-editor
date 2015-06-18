@@ -110,6 +110,15 @@ CKEDITOR.plugins.add( 'insert_tab', {
                     }
                 });
 
+                // Clean the output before the data is persisted.
+                editor.on('getData', function (e) {
+                    var data = e.data.dataValue;
+                        data = data.replace(/<[^<>]*(data-tab)[^<>]*><[\/]span>/ig, '<span data-tab="true"></span>'); 
+                    
+                    // Hmpf..
+                    e.data.dataValue = data;
+                });
+
                 tabItems.push(this.element);
             },
 

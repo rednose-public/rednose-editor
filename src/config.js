@@ -37,6 +37,7 @@ CKEDITOR.editorConfig = function( config ) {
         'insert_tab,' +
         'table,' +
         'tabletools,' +
+        'tableresize,' +
         'toolbar,' +
         'undo,' +
         'wysiwygarea';

@@ -223,6 +223,17 @@
 					leftCell && leftCell.setStyle( 'width', pxUnit( Math.max( leftOldWidth + sizeShift, 1 ) ) );
 					rightCell && rightCell.setStyle( 'width', pxUnit( Math.max( rightOldWidth - sizeShift, 1 ) ) );
 
+                    // XXX: REDNOSE
+                    // Convert to percentage                    
+                    var tablePx, leftPx, rightPx;
+                    
+                    tablePx = table.getSize('width');
+                    leftPr = Math.round((leftCell.getSize('width') / tablePx) * 100);
+                    rightPr = Math.round((rightCell.getSize('width') / tablePx) * 100);
+
+                    leftCell.setStyle('width', leftPr + '%');
+                    rightCell.setStyle('width', rightPr + '%');
+
 					// If we're in the last cell, we need to resize the table as well
 					if ( tableWidth )
 						table.setStyle( 'width', '100%');//pxUnit( tableWidth + sizeShift * ( rtl ? -1 : 1 ) ) );
@@ -393,17 +404,15 @@
 
                         // XXX: REDNOSE
                         // No table native firefox table resizing please.
-                        if (CKEDITOR.env.gecko) {
-                            table.$.addEventListener('DOMAttrModified', function (e) {
-						        if (e.target && e.target.nodeName.toUpperCase() === 'TABLE') {
-						            var attr = e.attrName.toUpperCase();
-						            
-						            if (attr === 'STYLE' || attr === 'HEIGHT' || attr === 'WIDTH') {
-						                e.target.removeAttribute(attr);
-						            }
-						        }
-						    });
-                        }
+                        table.$.addEventListener('DOMAttrModified', function (e) {
+					        if (e.target && e.target.nodeName.toUpperCase() === 'TABLE') {
+					            var attr = e.attrName.toUpperCase();
+					            
+					            if (attr === 'STYLE' || attr === 'HEIGHT' || attr === 'WIDTH') {
+					                e.target.removeAttribute(attr);
+					            }
+					        }
+					    });
 					}
 
 					var pillar = getPillarAtPosition( pillars, pageX );

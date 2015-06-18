@@ -390,6 +390,20 @@
 						table.setCustomData( '_cke_table_pillars', ( pillars = buildTableColumnPillars( table ) ) );
 						table.on( 'mouseout', clearPillarsCache );
 						table.on( 'mousedown', clearPillarsCache );
+
+                        // XXX: REDNOSE
+                        // No table native firefox table resizing please.
+                        if (CKEDITOR.env.gecko) {
+                            table.$.addEventListener('DOMAttrModified', function (e) {
+						        if (e.target && e.target.nodeName.toUpperCase() === 'TABLE') {
+						            var attr = e.attrName.toUpperCase();
+						            
+						            if (attr === 'STYLE' || attr === 'HEIGHT' || attr === 'WIDTH') {
+						                e.target.removeAttribute(attr);
+						            }
+						        }
+						    });
+                        }
 					}
 
 					var pillar = getPillarAtPosition( pillars, pageX );

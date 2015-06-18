@@ -78,6 +78,16 @@ CKEDITOR.plugins.add( 'insert_tab', {
             }
         });
 
+        // Bind this plugin to the TAB key.
+        editor.on('key', function(e) {
+            if (e.data.keyCode == 9) {
+                editor.execCommand('createTab');
+
+                e.cancel();
+            }
+        });
+
+
         editor.widgets.add( 'createTab', {
             // Disable drag and drop as its current implementation is buggy.
             draggable: false,
@@ -100,15 +110,6 @@ CKEDITOR.plugins.add( 'insert_tab', {
                 this.element.setAttribute('class', 'tab');
                 this.element.setAttribute('data-tab', 'true');
                 this.element.setHtml('&not;');
-
-                // Bind this plugin to the TAB key.
-                editor.on('key', function(e) {
-                    if (e.data.keyCode == 9) {
-                        editor.execCommand('createTab');
-
-                        e.cancel();
-                    }
-                });
 
                 // Clean the output before the data is persisted.
                 editor.on('getData', function (e) {

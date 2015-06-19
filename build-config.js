@@ -52,6 +52,7 @@ var CKBUILDER_CONFIG = {
 		insert_tab: 1,
 		table: 1,
 		tabletools: 1,
+		tableresize: 1,
 		toolbar: 1,
 		undo: 1,
 		wysiwygarea: 1

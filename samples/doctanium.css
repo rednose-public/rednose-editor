@@ -11,10 +11,23 @@ span.tab {
   line-height: 15pt;
 }
 
+.Standaard > .cke_widget_wrapper:nth-of-type(1n+0) span.tab {
+    display: inline-block;
+    text-align: center;
+    width: 2cm;
+}
+
+Standaard > .cke_widget_wrapper:nth-of-type(2n+0) span.tab {
+    display: inline-block;
+    text-align: center;
+    width: 12cm;
+}
+ 
 
 body {
   counter-reset: level1 level2;
 }
+
 
 .Standaard {
     margin-left: 30px;

@@ -231,8 +231,11 @@
                     leftPr = Math.round((leftCell.getSize('width') / tablePx) * 100);
                     rightPr = Math.round((rightCell.getSize('width') / tablePx) * 100);
 
-                    leftCell.setStyle('width', leftPr + '%');
-                    rightCell.setStyle('width', rightPr + '%');
+                    leftCell.removeAttribute('style');
+                    leftCell.setAttribute('width', leftPr + '%');
+                    
+                    rightCell.removeAttribute('style');
+                    rightCell.setAttribute('width', rightPr + '%');
 
 					// If we're in the last cell, we need to resize the table as well
 					if ( tableWidth )

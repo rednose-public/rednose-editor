@@ -1,8 +1,10 @@
 figure { margin: 0;}
 
 span.tab {
+    min-width: 20px;
     display: inline-block;
-    width: 0.1cm;
+    text-align: center;
+    width: 0.5cm;
 }
 
 .Standaard {
@@ -13,26 +15,26 @@ span.tab {
 
 .Standaard > .cke_widget_wrapper:nth-of-type(1n+0) span.tab {
     display: inline-block;
-    text-align: center;
     width: 2cm;
 }
 
 Standaard > .cke_widget_wrapper:nth-of-type(2n+0) span.tab {
     display: inline-block;
-    text-align: center;
     width: 12cm;
 }
- 
 
 body {
-  counter-reset: level1 level2;
+  counter-reset: level1 level2 level3;
 }
 
 
 .Standaard {
     margin-left: 30px;
     margin-right: 10px;
+}
 
+.Standaard {
+    counter-reset: level2
 }
 
 .Standaard::before {
@@ -60,7 +62,6 @@ body {
   font-family: Verdana;
   line-height: 30pt;
   margin-bottom: 89pt;
-  counter-reset: level1;
 }
 
 
@@ -72,15 +73,11 @@ body {
   margin-bottom: 89pt;
 }
 
-.NoteTitel {
-  counter-reset: level1;
-}
-
 .NotaTitel::before {
   padding-left: 50px;
   counter-increment: level2;            /* Increments only this instance
                                             of the section counter */
-  content: counters(level2, ".") ".";    /* Adds the value of all instances
+  content: counters(level2) ".";    /* Adds the value of all instances
                                             of the section counter separated
                                             by a ".". */
                                          /* if you need to support < IE8 then

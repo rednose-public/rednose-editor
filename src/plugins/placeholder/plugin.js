@@ -38,7 +38,7 @@
                 dialog: 'placeholder',
                 pathName: lang.pathName,
 
-                allowedContent: 'span[!data-placeholder,!data-type,data-value,data-binding,data-collapsible]',
+                allowedContent: 'span[!data-placeholder,!data-type,data-value,data-binding,data-collapsible,data-pattern]',
 
                 template: '<span></span>',
 
@@ -57,6 +57,7 @@
 
                     this.setData( 'value', this.element.getAttribute('data-value') || null);
                     this.setData( 'binding', this.element.getAttribute('data-binding') || null);
+                    this.setData( 'pattern', this.element.getAttribute('data-pattern') || null);
 
                     this.setData( 'collapsible', this.element.hasAttribute('data-collapsible'));
 
@@ -85,6 +86,12 @@
                         this.element.setAttribute( 'data-collapsible', this.data.collapsible);
                     } else {
                         this.element.hasAttribute( 'data-collapsible' ) && this.element.removeAttribute( 'data-collapsible' );
+                    }
+
+                    if (this.data.pattern) {
+                        this.element.setAttribute( 'data-pattern', this.data.pattern);
+                    } else {
+                        this.element.hasAttribute( 'data-pattern' ) && this.element.removeAttribute( 'data-pattern' );
                     }
 
                     if (this.data.type && this.data.type === 'static') {

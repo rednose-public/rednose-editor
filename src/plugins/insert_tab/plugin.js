@@ -5,7 +5,7 @@ CKEDITOR.plugins.add( 'insert_tab', {
     hidpi: false, // %REMOVE_LINE_CORE%
 
     init: function(editor) {
-        var tabItems = [],
+        var tabItems = [], tabItemsBackup = [],
             intervalInstance = null;
 
         // Allow empty spans
@@ -21,16 +21,18 @@ CKEDITOR.plugins.add( 'insert_tab', {
 
                 // Has a width property changed?
                 for (var i in tabItems) {
-                    var p = tabItems[i].getAscendant('p');
-                    
-                    if (p && p.getAttribute('class') !== null) {
-                        if (tabItems[i].data('style') !== p.getAttribute('class')) {
+                    if (tabItems[i]) {
+                        var p = tabItems[i].getAscendant('p');
+
+                        if (p && p.getAttribute('class') !== null) {
+                            if (tabItems[i].data('style') !== p.getAttribute('class')) {
                                 tabItems[i].setAttribute('style', '');
 
-                            if (tabItems[i].getSize('width') > 1) {
-                                tabItems[i].setHtml('&not;');
-                                tabItems[i].data('original-width', tabItems[i].getSize('width'));
-                                tabItems[i].data('style', tabItems[i].getAscendant('p').getAttribute('class'))
+                                if (tabItems[i].getSize('width') > 1) {
+                                    tabItems[i].setHtml('&not;');
+                                    tabItems[i].data('original-width', tabItems[i].getSize('width'));
+                                    tabItems[i].data('style', tabItems[i].getAscendant('p').getAttribute('class'))
+                                }
                             }
                         }
                     }
@@ -91,11 +93,16 @@ CKEDITOR.plugins.add( 'insert_tab', {
 
         // Clean the output before the data is persisted.
         editor.on('getData', function (e) {
-            var data = e.data.dataValue;
-                data = data.replace(/<[^<>]*(data-tab)[^<>]*><[\/]span>/ig, '<span data-tab="true"></span>'); 
-            
+            var data = e.data.dataValue,
+                data = data.replace(/<[^<>]*(data-tab)[^<>]*>.*?<[\/]span>/ig, '<span data-tab="true"></span>');
+
             // Hmpf..
             e.data.dataValue = data;
+
+            // getData() downcasted all the widgets, and deleted the internal references.
+            // Lets restore them from the internal backup.
+            // (If they are still visibile, showSource will actually remove them).
+            tabItems = tabItemsBackup;
         });
 
         editor.widgets.add( 'createTab', {
@@ -105,33 +112,57 @@ CKEDITOR.plugins.add( 'insert_tab', {
             allowedContent: 'span[class,data-tab]',
 
             template: '<span></span>',
-            
-            upcast: function( element ) {
+
+            upcast: function(element) {
                 return (element.name === 'span' && element.attributes['data-tab']);
             },
 
             downcast: function(element) {
-                element.children.length = 0;
+                if (tabItems.length === 0) {
+                    return null;
+                }
 
-                tabItems = [];
+                tabItemsBackup = tabItems;
+                tabItems       = [];
             },
 
             init: function () {
+                var reset = tabItems.length;
+
+                // --- Cleanup
+                for (var i in tabItems) {
+                    // Invisible or undefined tabs are removed.
+                    if (!tabItems[i]) {
+                        reset--;
+                    }
+
+                    if (tabItems[i].isVisible() === false)  {
+                        delete tabItems[i];
+
+                        reset--;
+                    }
+                }
+
+                if (reset === 0) {
+                    tabItems = [];
+                }
+                // --- / Cleanup
+
                 tabItems.push(this.element);
 
-                // Force to fire a change event after the css is loaded.                
+                // Force to fire a change event after the css is loaded.
                 if (tabItems.length === 1) {
                     intervalInstance = setInterval(function() {
-                        if (tabItems[0].getSize('width')  > 0) {
+                        if (tabItems[0] && tabItems[0].getSize('width')  > 0) {
                             editor.fire('change');
-                            
+
                             clearInterval(intervalInstance);
                         }
                     }, 300);
                 }
 
                 this.element.setAttribute('class', 'tab');
-                this.element.setAttribute('data-tab', 'true');               
+                this.element.setAttribute('data-tab', 'true');
             },
 
             data: function () {

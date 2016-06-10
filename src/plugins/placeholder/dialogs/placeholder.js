@@ -26,7 +26,21 @@ CKEDITOR.dialog.add( 'placeholder', function( editor ) {
 				label: generalLabel,
 				title: generalLabel,
 				elements: [
-					// Dialog window UI elements.
+					{
+						id: 'placeholderKind',
+						type: 'select',
+						label: 'Type',
+						items: [['Text', 'text'], ['Richt text', 'html'], ['Date', 'date'], ['Static', 'static']],
+						required: true,
+						validate: CKEDITOR.dialog.validate.regex( validNameRegex, lang.invalidName ),
+						setup: function( widget ) {
+							this.setValue( widget.data.type );
+						},
+						commit: function( widget ) {
+							widget.setData( 'type', this.getValue() );
+						}
+					},
+
 					{
 						id: 'name',
 						type: 'text',

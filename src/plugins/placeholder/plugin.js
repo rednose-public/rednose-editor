@@ -22,6 +22,9 @@
             // Allow empty spans
             CKEDITOR.dtd.$removeEmpty.span = 0;
 
+            // Add static placeholder styling
+            CKEDITOR.addCss( 'span[data-type=static] { background-color: #e6e6e6; }' );
+
             var lang = editor.lang.placeholder;
 
             // Register dialog.
@@ -35,7 +38,7 @@
                 dialog: 'placeholder',
                 pathName: lang.pathName,
 
-                allowedContent: 'span[!data-placeholder,!data-type,data-value,data-binding,data-collapsible]',
+                allowedContent: 'span[!data-placeholder,!data-type,data-value,data-binding,data-collapsible,data-pattern]',
 
                 template: '<span></span>',
 
@@ -54,6 +57,7 @@
 
                     this.setData( 'value', this.element.getAttribute('data-value') || null);
                     this.setData( 'binding', this.element.getAttribute('data-binding') || null);
+                    this.setData( 'pattern', this.element.getAttribute('data-pattern') || null);
 
                     this.setData( 'collapsible', this.element.hasAttribute('data-collapsible'));
 
@@ -84,7 +88,17 @@
                         this.element.hasAttribute( 'data-collapsible' ) && this.element.removeAttribute( 'data-collapsible' );
                     }
 
-                    this.element.setText( '≪' + this.data.name + '≫' );
+                    if (this.data.pattern) {
+                        this.element.setAttribute( 'data-pattern', this.data.pattern);
+                    } else {
+                        this.element.hasAttribute( 'data-pattern' ) && this.element.removeAttribute( 'data-pattern' );
+                    }
+
+                    if (this.data.type && this.data.type === 'static') {
+                        this.element.setText( '[' + this.data.name + ']' );
+                    } else {
+                        this.element.setText( '≪' + this.data.name + '≫' );
+                    }
                 }
             } );
 

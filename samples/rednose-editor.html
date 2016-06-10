@@ -6,8 +6,8 @@
     <!--<script src="../dist/ckeditor/ckeditor.js"></script>-->
 </head>
 <body>
-<textarea id="editor">
-    <table class="Tabel">
+<textarea id="editor"></textarea>
+<!--    <table class="Tabel">
         <tbody>
         <tr>
             <td>&nbsp;</td>
@@ -27,9 +27,23 @@
         </tr>
         </tbody>
     </table>
+    
+
+<p class="Standaard">dapojdv</p>
+<p class="Standaard">dapojdv</p>
+
+<p class="NotaTitel">opjpo</p>
+
+<p class="Standaard">sdopvjkd</p>
+<p class="Standaard">dapojdv</p>
+
+<p class="NotaTitel">opjoj</p>
+
 
     <p>&nbsp;</p>
+-->
 </textarea>
+<input type="button" value="Save" onclick="alert(CKEDITOR.instances.editor.getData());" />
 <script>
     CKEDITOR.stylesSet.add('doctanium', [
         {name: 'Tabel', element: 'table', attributes: { 'class': 'Tabel'}},
@@ -44,7 +58,7 @@
     var editor = CKEDITOR.replace('editor', {
         default_paragraph_style: 'Standaard',
         default_table_style: 'Tabel',
-        contentsCss: 'doctanium.css?swwwiwqwwe',
+        contentsCss: 'doctanium.css.php?swwwiwqwwe',
         stylesSet: 'doctanium',
         height: 550
     });

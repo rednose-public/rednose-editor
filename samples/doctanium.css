@@ -1,10 +1,54 @@
 figure { margin: 0;}
 
+span.tab {
+    min-width: 20px;
+    display: inline-block;
+    text-align: center;
+    width: 0.5cm;
+}
+
 .Standaard {
   font-size: 8.5pt;
   font-family: Verdana;
   line-height: 15pt;
 }
+
+.Standaard > .cke_widget_wrapper:nth-of-type(1n+0) span.tab {
+    display: inline-block;
+    width: 2cm;
+}
+
+Standaard > .cke_widget_wrapper:nth-of-type(2n+0) span.tab {
+    display: inline-block;
+    width: 12cm;
+}
+
+body {
+  counter-reset: level1 level2 level3;
+}
+
+
+.Standaard {
+    margin-left: 30px;
+    margin-right: 10px;
+}
+
+.Standaard {
+    counter-reset: level2
+}
+
+.Standaard::before {
+  margin-left: -10px;
+  counter-increment: level1;            /* Increments only this instance
+                                            of the section counter */
+  content: counter(level1) ".";    /* Adds the value of all instances
+                                            of the section counter separated
+                                            by a ".". */
+                                         /* if you need to support < IE8 then
+                                            make sure there is no space after 
+                                            the ',' */
+}
+
 
 .Registratienummer {
   font-size: 6.5pt;
@@ -18,6 +62,34 @@ figure { margin: 0;}
   font-family: Verdana;
   line-height: 30pt;
   margin-bottom: 89pt;
+}
+
+
+.NotaTitel {
+  font-weight: bold;
+  font-size: 18pt;
+  font-family: Verdana;
+  line-height: 30pt;
+  margin-bottom: 89pt;
+}
+
+.NotaTitel::before {
+  padding-left: 50px;
+  counter-increment: level2;            /* Increments only this instance
+                                            of the section counter */
+  content: counters(level2) ".";    /* Adds the value of all instances
+                                            of the section counter separated
+                                            by a ".". */
+                                         /* if you need to support < IE8 then
+                                            make sure there is no space after 
+                                            the ',' */
+}
+
+
+.NotaTitel span.tab {
+    display: inline-block;
+    text-align: center;
+    width: 12cm;
 }
 
 .NotaChapeau {

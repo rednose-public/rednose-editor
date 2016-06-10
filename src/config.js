@@ -24,6 +24,7 @@ CKEDITOR.editorConfig = function( config ) {
         'list,' +
         'magicline,' +
         'marktitle,' +
+        'default_style,' +
         'noresize,' +
         'pastefromword,' +
         'pastetext,' +
@@ -33,8 +34,10 @@ CKEDITOR.editorConfig = function( config ) {
         'sourcearea,' +
         'stylescombo,' +
         'tab,' +
+        'insert_tab,' +
         'table,' +
         'tabletools,' +
+        'tableresize,' +
         'toolbar,' +
         'undo,' +
         'wysiwygarea';

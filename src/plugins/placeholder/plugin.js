@@ -25,6 +25,9 @@
             // Add static placeholder styling
             CKEDITOR.addCss( 'span[data-type=static] { background-color: #e6e6e6; }' );
 
+            // Add metadata reference field styling
+            CKEDITOR.addCss( 'span[data-type=meta_reference] { background-color: #e6e6e6; }' );
+
             var lang = editor.lang.placeholder;
 
             // Register dialog.
@@ -94,7 +97,7 @@
                         this.element.hasAttribute( 'data-pattern' ) && this.element.removeAttribute( 'data-pattern' );
                     }
 
-                    if (this.data.type && this.data.type === 'static') {
+                    if (this.data.type && (this.data.type === 'static' || this.data.type === 'meta_reference')) {
                         this.element.setText( '[' + this.data.name + ']' );
                     } else {
                         this.element.setText( '≪' + this.data.name + '≫' );

@@ -31,6 +31,7 @@ var CKBUILDER_CONFIG = {
 		contextmenu: 1,
 		enterkey: 1,
 		entities: 1,
+		conditionals: 1,
 		floatingspace: 1,
 		//format: 1,
         htmlwriter: 1,

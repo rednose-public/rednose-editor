@@ -17,13 +17,13 @@ CKEDITOR.editorConfig = function( config ) {
         'contextmenu,' +
         'enterkey,' +
         'entities,' +
+        'conditionals,' +
         'floatingspace,' +
         //'format,' +
         'htmlwriter,' +
         'image,' +
         'list,' +
         'magicline,' +
-        'marktitle,' +
         'default_style,' +
         'noresize,' +
         'pastefromword,' +

@@ -60,8 +60,8 @@ body {
   font-weight: bold;
   font-size: 18pt;
   font-family: Verdana;
-  line-height: 30pt;
-  margin-bottom: 89pt;
+  /*line-height: 30pt;
+  lmargin-bottom: 89pt;*/
 }
 
 
@@ -69,8 +69,8 @@ body {
   font-weight: bold;
   font-size: 18pt;
   font-family: Verdana;
-  line-height: 30pt;
-  margin-bottom: 89pt;
+  /*line-height: 30pt;
+  lmargin-bottom: 89pt;*/
 }
 
 .NotaTitel::before {

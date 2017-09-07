@@ -12,22 +12,13 @@
 
 <p class="NotaKop3"><span data-condition-id="1">Mijn <span data-condition-id="2">autopet</span> is gestolen.</span>t</p>
 
-</textarea>
-<!--    <table class="Tabel">
+    <table class="Tabel">
         <tbody>
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+        <tr data-condition-id="5">
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
@@ -37,7 +28,7 @@
 
 
     <p>&nbsp;</p>
--->
+
 </textarea>
 <input type="button" value="Save" onclick="alert(CKEDITOR.instances.editor.getData());" />
 <script>
@@ -51,8 +42,12 @@
         {name: 'NotaKop3', element: 'p', attributes: {'class': 'NotaKop3'}}
     ]);
 
-    CKEDITOR.on('textCondition', function (e) {
+    CKEDITOR.on('createTextCondition', function (e) {
         e.data.callback(1);
+    });
+
+    CKEDITOR.on('modifyTextCondition', function (e) {
+        e.data.callback(99);
     });
 
     var editor = CKEDITOR.replace('editor', {

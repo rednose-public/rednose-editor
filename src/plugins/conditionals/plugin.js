@@ -1,3 +1,5 @@
+
+
 CKEDITOR.plugins.add( 'conditionals', {
 
     icons: 'text-exp-icon,tr-exp-icon,tr-exp-remove-icon,text-exp-remove-icon', // %REMOVE_LINE_CORE%
@@ -5,72 +7,119 @@ CKEDITOR.plugins.add( 'conditionals', {
 
     onLoad: function() {
         CKEDITOR.addCss(
-            '*[data-condition-id]::after { content: \'}\'; background-color: yellow; border: 1px dashed black; font-weight: bold; margin: 1px; padding: 1px; }' +
-            '*[data-condition-id] br[type="_moz"]{ display: none; }'
+            'span[data-condition-id]::after { content: \'}\'; background-color: yellow; border: 1px dashed black; font-weight: bold; margin: 1px; padding: 1px; }' +
+            'span[data-condition-id] br[type="_moz"]{ display: none; }'
         );
         
         for (var i = 0; i < 999; i++) {
             CKEDITOR.addCss(
-                '*[data-condition-id="' + i + '"]::before { content: \'{ ' + i +': \'; background-color: yellow; border: 1px dashed black; font-weight: bold; margin: 1px; padding: 1px; }'
+                'span[data-condition-id="' + i + '"]::before { content: \'{ ' + i +': \'; background-color: yellow; border: 1px dashed black; font-weight: bold; margin: 1px; padding: 1px; }'
             );
         }
     },
 
     init: function(editor) {
-        var self = this;               
+        var self = this;
 
         findSelectedConditions = function () {
             var sel = editor.getSelection(),
-                ranges = sel.getRanges();                            
+                buffer = [],
+                ranges = sel.getRanges();                         
 
-            console.log(ranges);
-//            var parentNodes = ranges[0].cloneContents(),
-//                ids = [];
+            if (ranges.length > 0) {
+                range = ranges[0];
 
-            //parentNodes = parentNodes.getChildren().$;
+                var ancestor = range.getCommonAncestor(),
+                    boundary = range.getBoundaryNodes();
 
-            // Ranges contain
-            /*(parentNodes.forEach(function(item) {
-                //console.log(item.querySelectorAll('[data-condition-id]'));
-                /*var node = ranges[0].endContainer.$;
+                var nodes = getNodesBetween(ancestor.$, boundary.startNode.$, boundary.endNode.$);
 
+                for (var i in nodes) {                    
+                    if (nodes[i].nodeType !== 3 && nodes[i].hasAttribute('data-condition-id')) {
+                        buffer.push(nodes[i]);
+                    }
+                }
                 
+                if (boundary.startNode.$.parentNode.hasAttribute('data-condition-id') === true) {
+                    buffer.push(boundary.startNode.$.parentNode);
+                }
+            }
+
+            return buffer;
+        }
+
+        getNodesBetween = function(rootNode, startNode, endNode) {
+            var reachedStartNode = false,
+                reachedEndNode = false,
+                buffer = [];
+
+            getNodes = function(node) {
+                if (node === startNode) {
+                    reachedStartNode = true;
+                } else if (node === endNode) {
+                    reachedEndNode = true;
+                } else {
+                    if (reachedStartNode === true && reachedEndNode === false) {
+                        buffer.push(node);
+                    }
+
+                    for (var i = 0, len = node.childNodes.length; (reachedEndNode === false && i < len); ++i) {
+                        getNodes(node.childNodes[i]);
+                    }
+                }
+            }
+
+            getNodes(rootNode);
+
+            return buffer;
+        } 
+
+        parentCondition = function(selectionIsEmpty, ranges) {
+            if (selectionIsEmpty === true && ranges.length > 0) {
+                var node = ranges[0].endContainer.$;
 
                 while (node.parentNode) {
                     if (node.hasAttribute && node.hasAttribute('data-condition-id')) {
-                        ids.push(node.getAttribute('data-condition-id'))
+                        return node;
                     }
 
-                    nod*e = node.parentNode;
+                    node = node.parentNode;
                 }
-            });
-*/
-            return ids;
-        }
+            }
+
+            return false;
+        },
 
         toolbarState = function () {
             var sel = editor.getSelection(),
                 ranges = sel.getRanges(),
                 selectionIsEmpty = sel.getType() == CKEDITOR.SELECTION_NONE || ( ranges.length == 1 && ranges[0].collapsed );            
 
-            var caretInsideCondition = function() {
-                if (selectionIsEmpty === true) {
-                    var node = ranges[0].endContainer.$;
-                    
-                    while (node.parentNode) {
-                        if (node.hasAttribute && node.hasAttribute('data-condition-id')) {
-                            return true;
-                        }
+            var rowState = function () {
+                if (selectionIsEmpty === true && ranges.length > 0) {
+                    parentNode = ranges[0].startContainer.$;
 
-                        node = node.parentNode;
+                    if (parentNode.parentNode) {
+                        parentNode = parentNode.parentNode;
+                    }
+
+                    if (parentNode.tagName.toUpperCase() === 'TR') {
+                        if (parentNode.hasAttribute('data-condition-id')) {
+                            return CKEDITOR.TRISTATE_ON
+                        }
+                    
+                        return CKEDITOR.TRISTATE_OFF;
                     }
                 }
                 
-                return false;
-            }
+                return CKEDITOR.TRISTATE_DISABLED;
+            };
+
+            editor.getCommand('rowCondition').setState(rowState());
+            editor.getCommand('removeRowCondition').setState(rowState() === CKEDITOR.TRISTATE_ON ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED);
 
             editor.getCommand('textCondition').setState(
-                selectionIsEmpty === true ? (caretInsideCondition() === true ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_DISABLED) : CKEDITOR.TRISTATE_OFF
+                selectionIsEmpty === true ? (parentCondition(selectionIsEmpty, ranges) !== false ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_DISABLED) : CKEDITOR.TRISTATE_OFF
             );            
             editor.getCommand('removeTextCondition').setState(findSelectedConditions().length > 0 ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED);
         }
@@ -103,7 +152,13 @@ CKEDITOR.plugins.add( 'conditionals', {
             allowedContent: 'span[data-condition-id]',
 
             exec: function (editor) {                
-                CKEDITOR.fire('textCondition', { editor: editor, callback: self._callback });
+                var state = editor.getCommand('textCondition').state;
+
+                if (state === CKEDITOR.TRISTATE_ON) {
+                    CKEDITOR.fire('modifyTextCondition', { editor: editor, callback: self._modifyCondition });
+                } else {
+                    CKEDITOR.fire('createTextCondition', { editor: editor, callback: self._createCondition });
+                }
             }
         });
 
@@ -111,7 +166,14 @@ CKEDITOR.plugins.add( 'conditionals', {
             startDisabled: true,
             allowedContent: 'span[data-condition-id]',
 
-            exec: function (editor) {                
+            exec: function (editor) {
+                var conditionNodes = findSelectedConditions();
+
+                for (var i in conditionNodes) {
+                    var node = new CKEDITOR.dom.node(conditionNodes[i]);
+
+                    node.remove(true);
+                }
             }
         });
 
@@ -120,7 +182,14 @@ CKEDITOR.plugins.add( 'conditionals', {
             allowedContent: 'tr[data-condition-id]',
 
             exec: function (editor) {
-                CKEDITOR.fire('textCondition', { editor: editor, callback: self._callback });
+            }
+        });
+
+        editor.addCommand('removeRowCondition', {
+            startDisabled: true,
+            allowedContent: 'tr[data-condition-id]',
+
+            exec: function (editor) {
             }
         });
 
@@ -153,7 +222,15 @@ CKEDITOR.plugins.add( 'conditionals', {
         });
     },
 
-    _callback: function(expressionId) {
+    _modifyCondition: function(expressionId) {
+        var sel = editor.getSelection(),
+            ranges = sel.getRanges(),
+            affectedCondition = parentCondition(true, ranges);
+
+        affectedCondition.setAttribute('data-condition-id', expressionId);
+    },
+
+    _createCondition: function(expressionId) {
         editor.applyStyle(new CKEDITOR.style({
             element: 'span',
             attributes : { 'data-condition-id' : expressionId }

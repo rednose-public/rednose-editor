@@ -4,7 +4,7 @@
 
 $css = file_get_contents('doctanium.css');
 
-sleep(1);
+//sleep(1);
 
 header("Content-type: text/css", true); 
 

@@ -43,11 +43,11 @@
     ]);
 
     CKEDITOR.on('createTextCondition', function (e) {
-        e.data.callback(1);
+        e.data.callback(1, e.data.node);
     });
 
     CKEDITOR.on('modifyTextCondition', function (e) {
-        e.data.callback(99);
+        e.data.callback(99, e.data.node);
     });
 
     var editor = CKEDITOR.replace('editor', {

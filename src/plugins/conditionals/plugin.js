@@ -1,5 +1,4 @@
 
-
 CKEDITOR.plugins.add( 'conditionals', {
 
     icons: 'text-exp-icon,tr-exp-icon,tr-exp-remove-icon,text-exp-remove-icon', // %REMOVE_LINE_CORE%
@@ -7,21 +6,23 @@ CKEDITOR.plugins.add( 'conditionals', {
 
     onLoad: function() {
         CKEDITOR.addCss(
-            'span[data-condition-id]::after { content: \'}\'; background-color: yellow; border: 1px dashed black; font-weight: bold; margin: 1px; padding: 1px; }' +
+            'span[data-condition-id]::after { content: \'}\'; background-color: yellow; border: 1px dashed black; color: black; font-weight: bold; margin: 1px; padding: 1px; }' +
             'span[data-condition-id] br[type="_moz"]{ display: none; }'
         );
         
         for (var i = 0; i < 999; i++) {
             CKEDITOR.addCss(
-                'span[data-condition-id="' + i + '"]::before { content: \'{ ' + i +': \'; background-color: yellow; border: 1px dashed black; font-weight: bold; margin: 1px; padding: 1px; }'
+                'span[data-condition-id="' + i + '"]::before { content: \'{ ' + i +': \'; background-color: yellow; border: 1px dashed black; color: black; font-weight: bold; margin: 1px; padding: 1px; }'               
             );
+
+            CKEDITOR.addCss('tr[data-condition-id="' + i + '"] td:first-child:before { content: \' { ' + i +' } \'; background-color: yellow; border: 1px dashed black; color: black; font-weight: bold; margin: 1px; padding: 1px; }');
         }
     },
 
     init: function(editor) {
         var self = this;
 
-        findSelectedConditions = function () {
+        var findSelectedConditions = function () {
             var sel = editor.getSelection(),
                 buffer = [],
                 ranges = sel.getRanges();                         
@@ -46,9 +47,9 @@ CKEDITOR.plugins.add( 'conditionals', {
             }
 
             return buffer;
-        }
+        };
 
-        getNodesBetween = function(rootNode, startNode, endNode) {
+        var getNodesBetween = function(rootNode, startNode, endNode) {
             var reachedStartNode = false,
                 reachedEndNode = false,
                 buffer = [];
@@ -72,14 +73,14 @@ CKEDITOR.plugins.add( 'conditionals', {
             getNodes(rootNode);
 
             return buffer;
-        } 
+        };
 
-        parentCondition = function(selectionIsEmpty, ranges) {
+        var parentCondition = function(selectionIsEmpty, ranges) {
             if (selectionIsEmpty === true && ranges.length > 0) {
                 var node = ranges[0].endContainer.$;
 
                 while (node.parentNode) {
-                    if (node.hasAttribute && node.hasAttribute('data-condition-id')) {
+                    if (node.hasAttribute && node.hasAttribute('data-condition-id') && node.tagName.toUpperCase() === 'SPAN') {
                         return node;
                     }
 
@@ -88,9 +89,36 @@ CKEDITOR.plugins.add( 'conditionals', {
             }
 
             return false;
-        },
+        };
 
-        toolbarState = function () {
+        var findConditionNode = function () {
+            var sel = editor.getSelection(),
+                ranges = sel.getRanges(),
+                affectedCondition = parentCondition(true, ranges);
+
+            return affectedCondition;
+        };
+
+        var findRow = function () {
+            var sel = editor.getSelection(),
+                ranges = sel.getRanges();
+                
+            if (ranges.length > 0) {
+                var node = ranges[0].endContainer.$;
+
+                while (node.parentNode) {
+                    if (node.nodeType !== 3 && node.tagName.toUpperCase() === 'TR') {
+                        return node;
+                    }
+                    
+                    node = node.parentNode;
+                }
+            }
+            
+            return null;
+        };
+
+        var toolbarState = function () {
             var sel = editor.getSelection(),
                 ranges = sel.getRanges(),
                 selectionIsEmpty = sel.getType() == CKEDITOR.SELECTION_NONE || ( ranges.length == 1 && ranges[0].collapsed );            
@@ -99,16 +127,16 @@ CKEDITOR.plugins.add( 'conditionals', {
                 if (selectionIsEmpty === true && ranges.length > 0) {
                     parentNode = ranges[0].startContainer.$;
 
-                    if (parentNode.parentNode) {
-                        parentNode = parentNode.parentNode;
-                    }
-
-                    if (parentNode.tagName.toUpperCase() === 'TR') {
-                        if (parentNode.hasAttribute('data-condition-id')) {
-                            return CKEDITOR.TRISTATE_ON
+                    while (parentNode) {
+                        if (parentNode.tagName && parentNode.tagName.toUpperCase() === 'TR') {
+                            if (parentNode.hasAttribute('data-condition-id')) {
+                                return CKEDITOR.TRISTATE_ON
+                            }
+                        
+                            return CKEDITOR.TRISTATE_OFF;
                         }
-                    
-                        return CKEDITOR.TRISTATE_OFF;
+                        
+                        parentNode = parentNode.parentNode;
                     }
                 }
                 
@@ -122,12 +150,13 @@ CKEDITOR.plugins.add( 'conditionals', {
                 selectionIsEmpty === true ? (parentCondition(selectionIsEmpty, ranges) !== false ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_DISABLED) : CKEDITOR.TRISTATE_OFF
             );            
             editor.getCommand('removeTextCondition').setState(findSelectedConditions().length > 0 ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED);
-        }
+        };
 
         // I think this event is triggered when your caret changes parent element
         editor.on('selectionChange', function(e) {
             toolbarState();
         });
+        
         editor.on('contentDom', function () {
             var editable = editor.editable(),
                 mouseupTimeout;
@@ -135,7 +164,7 @@ CKEDITOR.plugins.add( 'conditionals', {
             editable.attachListener( CKEDITOR.env.ie ? editable : editor.document.getDocumentElement(), 'mouseup', function() {
                 mouseupTimeout = setTimeout(function() {
                     toolbarState();
-                }, 0);
+                }, 10);
             });
 
             editor.on('destroy', function() {
@@ -152,12 +181,33 @@ CKEDITOR.plugins.add( 'conditionals', {
             allowedContent: 'span[data-condition-id]',
 
             exec: function (editor) {                
-                var state = editor.getCommand('textCondition').state;
+                var state = editor.getCommand('textCondition').state,
+                    conditionNode = findConditionNode();
 
                 if (state === CKEDITOR.TRISTATE_ON) {
-                    CKEDITOR.fire('modifyTextCondition', { editor: editor, callback: self._modifyCondition });
+                    if (!conditionNode) {
+                        return;
+                    }
+                    
+                    CKEDITOR.fire('modifyTextCondition', {
+                        editor: editor,
+                        node: conditionNode,
+                        callback: function (expressionId, node) {
+                            self._modifyCondition(expressionId, node)
+                             
+                            toolbarState();
+                        }
+                    });
                 } else {
-                    CKEDITOR.fire('createTextCondition', { editor: editor, callback: self._createCondition });
+                    CKEDITOR.fire('createTextCondition', {
+                        editor: editor,
+                        node: conditionNode,
+                        callback: function (expressionId) {
+                            self._createCondition(expressionId);
+                             
+                            toolbarState();
+                        }
+                    });
                 }
             }
         });
@@ -182,14 +232,48 @@ CKEDITOR.plugins.add( 'conditionals', {
             allowedContent: 'tr[data-condition-id]',
 
             exec: function (editor) {
+                var state = editor.getCommand('rowCondition').state,
+                    rowNode = findRow();
+
+                if (!rowNode) {
+                    return;
+                }
+
+                if (state === CKEDITOR.TRISTATE_ON) {
+                    CKEDITOR.fire('modifyRowCondition', {
+                        editor: editor,
+                        node: rowNode,
+                        callback: function (expressionId, node) {
+                            self._modifyRowCondition(expressionId, node);
+                            
+                            toolbarState();
+                        }
+                    });
+                } else {
+                    CKEDITOR.fire('createRowCondition', {
+                        editor: editor,
+                        node: rowNode,
+                        callback: function (expressionId, node) {
+                            self._createRowCondition(expressionId, node);
+                            
+                            toolbarState();
+                        }
+                    });
+                }
             }
         });
-
+        
         editor.addCommand('removeRowCondition', {
             startDisabled: true,
             allowedContent: 'tr[data-condition-id]',
 
             exec: function (editor) {
+                var rowNode = findRow();
+                
+                if (rowNode) {
+                    rowNode.removeAttribute('data-condition-id');
+                    toolbarState();
+                }
             }
         });
 
@@ -221,12 +305,10 @@ CKEDITOR.plugins.add( 'conditionals', {
             icon: 'tr-exp-remove-icon'
         });
     },
-
-    _modifyCondition: function(expressionId) {
-        var sel = editor.getSelection(),
-            ranges = sel.getRanges(),
-            affectedCondition = parentCondition(true, ranges);
-
+  
+    _modifyCondition: function(expressionId, node) {
+        var affectedCondition = node;
+        
         affectedCondition.setAttribute('data-condition-id', expressionId);
     },
 
@@ -235,5 +317,21 @@ CKEDITOR.plugins.add( 'conditionals', {
             element: 'span',
             attributes : { 'data-condition-id' : expressionId }
         }));
+    },
+    
+    _modifyRowCondition: function (expressionId, node) {
+        var rowNode = node;
+
+        if (rowNode) {
+            rowNode.setAttribute('data-condition-id', expressionId);
+        }
+    },
+   
+    _createRowCondition: function(expressionId, node) {
+        var rowNode = node;
+
+        if (rowNode) {
+            rowNode.setAttribute('data-condition-id', expressionId);
+        }
     }
 });

@@ -35,13 +35,13 @@ CKEDITOR.plugins.add( 'conditionals', {
 
                 var nodes = getNodesBetween(ancestor.$, boundary.startNode.$, boundary.endNode.$);
 
-                for (var i in nodes) {                    
-                    if (nodes[i].nodeType !== 3 && nodes[i].hasAttribute('data-condition-id')) {
+                for (var i in nodes) {
+                    if (nodes[i].nodeType !== 3 && nodes[i].tagName.toUpperCase() !== 'TR' && nodes[i].hasAttribute('data-condition-id')) {
                         buffer.push(nodes[i]);
                     }
                 }
                 
-                if (boundary.startNode.$.parentNode.hasAttribute('data-condition-id') === true) {
+                if (boundary.startNode.$.parentNode.hasAttribute('data-condition-id') === true && boundary.startNode.$.parentNode.tagName.toUpperCase() !== 'TR') {
                     buffer.push(boundary.startNode.$.parentNode);
                 }
             }
@@ -193,7 +193,7 @@ CKEDITOR.plugins.add( 'conditionals', {
                         editor: editor,
                         node: conditionNode,
                         callback: function (expressionId, node) {
-                            self._modifyCondition(expressionId, node)
+                            _modifyCondition(expressionId, node)
                              
                             toolbarState();
                         }
@@ -203,7 +203,7 @@ CKEDITOR.plugins.add( 'conditionals', {
                         editor: editor,
                         node: conditionNode,
                         callback: function (expressionId) {
-                            self._createCondition(expressionId);
+                            _createCondition(expressionId);
                              
                             toolbarState();
                         }
@@ -244,7 +244,7 @@ CKEDITOR.plugins.add( 'conditionals', {
                         editor: editor,
                         node: rowNode,
                         callback: function (expressionId, node) {
-                            self._modifyRowCondition(expressionId, node);
+                            _modifyRowCondition(expressionId, node);
                             
                             toolbarState();
                         }
@@ -254,7 +254,7 @@ CKEDITOR.plugins.add( 'conditionals', {
                         editor: editor,
                         node: rowNode,
                         callback: function (expressionId, node) {
-                            self._createRowCondition(expressionId, node);
+                            _createRowCondition(expressionId, node);
                             
                             toolbarState();
                         }
@@ -304,34 +304,34 @@ CKEDITOR.plugins.add( 'conditionals', {
             toolbar: 'conditionals,3',
             icon: 'tr-exp-remove-icon'
         });
-    },
-  
-    _modifyCondition: function(expressionId, node) {
-        var affectedCondition = node;
+      
+        var _modifyCondition = function(expressionId, node) {
+            var affectedCondition = node;
+            
+            affectedCondition.setAttribute('data-condition-id', expressionId);
+        };
+
+        var _createCondition = function(expressionId) {
+            editor.applyStyle(new CKEDITOR.style({
+                element: 'span',
+                attributes : { 'data-condition-id' : expressionId }
+            }));
+        };
         
-        affectedCondition.setAttribute('data-condition-id', expressionId);
-    },
+        var _modifyRowCondition = function (expressionId, node) {
+            var rowNode = node;
 
-    _createCondition: function(expressionId) {
-        editor.applyStyle(new CKEDITOR.style({
-            element: 'span',
-            attributes : { 'data-condition-id' : expressionId }
-        }));
-    },
-    
-    _modifyRowCondition: function (expressionId, node) {
-        var rowNode = node;
+            if (rowNode) {
+                rowNode.setAttribute('data-condition-id', expressionId);
+            }
+        };
 
-        if (rowNode) {
-            rowNode.setAttribute('data-condition-id', expressionId);
+        var _createRowCondition = function(expressionId, node) {
+            var rowNode = node;
+
+            if (rowNode) {
+                rowNode.setAttribute('data-condition-id', expressionId);
+            }
         }
     },
-   
-    _createRowCondition: function(expressionId, node) {
-        var rowNode = node;
-
-        if (rowNode) {
-            rowNode.setAttribute('data-condition-id', expressionId);
-        }
-    }
 });

@@ -6,17 +6,10 @@ CKEDITOR.plugins.add( 'conditionals', {
 
     onLoad: function() {
         CKEDITOR.addCss(
-            'span[data-condition-id]::after { content: \'}\'; background-color: yellow; border: 1px dashed black; color: black; font-weight: bold; margin: 1px; padding: 1px; }' +
+            'span[data-condition-id]::before { content: \'{\'; background-color: yellow; border: 1px dashed black; color: black; font-weight: bold; margin: 1px; padding: 1px; }' +
+            'span[data-condition-id]::after  { content: \'}\'; background-color: yellow; border: 1px dashed black; color: black; font-weight: bold; margin: 1px; padding: 1px; }' +
             'span[data-condition-id] br[type="_moz"]{ display: none; }'
         );
-        
-        for (var i = 0; i < 999; i++) {
-            CKEDITOR.addCss(
-                'span[data-condition-id="' + i + '"]::before { content: \'{ ' + i +': \'; background-color: yellow; border: 1px dashed black; color: black; font-weight: bold; margin: 1px; padding: 1px; }'               
-            );
-
-            CKEDITOR.addCss('tr[data-condition-id="' + i + '"] td:first-child:before { content: \' { ' + i +' } \'; background-color: yellow; border: 1px dashed black; color: black; font-weight: bold; margin: 1px; padding: 1px; }');
-        }
     },
 
     init: function(editor) {

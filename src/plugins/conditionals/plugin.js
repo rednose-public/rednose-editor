@@ -6,9 +6,10 @@ CKEDITOR.plugins.add( 'conditionals', {
 
     onLoad: function() {
         CKEDITOR.addCss(
-            'span[data-condition-id]::before { content: \'{\'; background-color: yellow; border: 1px dashed black; color: black; font-weight: bold; margin: 1px; padding: 1px; }' +
-            'span[data-condition-id]::after  { content: \'}\'; background-color: yellow; border: 1px dashed black; color: black; font-weight: bold; margin: 1px; padding: 1px; }' +
-            'span[data-condition-id] br[type="_moz"]{ display: none; }'
+            'span[data-condition-id]::after { content: \'}\'; background-color: yellow; border: 1px dashed black; color: black; font-weight: bold; margin: 1px; padding: 1px; }' +
+            'span[data-condition-id]::after { content: \'}\'; background-color: yellow; border: 1px dashed black; color: black; font-weight: bold; margin: 1px; padding: 1px; }' +
+            'span[data-condition-id] br[type="_moz"]{ display: none; }' +
+            'tr[data-condition-id] td:first-child:before { content: \' { ^ } \'; background-color: yellow; border: 1px dashed black; color: black; font-weight: bold; margin: 1px; padding: 1px; }'
         );
     },
 

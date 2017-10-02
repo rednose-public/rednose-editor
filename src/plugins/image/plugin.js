@@ -63,12 +63,12 @@
 
             allowedContent:
                 'figure;' +
-                'img[!src];',
+                'img[!src,alt];',
 
             requiredContent: 'figure',
 
             // Dialog disabled for now
-            //dialog: 'image',
+            dialog: 'image',
 
             upcast: function( element ) {
                 return element.name == 'figure';
@@ -77,10 +77,13 @@
             init: function() {
                 var img = this.element.findOne('img');
                 var url = img && img.getAttribute('src');
+                var alt = img && img.getAttribute('alt');
 
                 if (url) {
                     this.setData('url', url);
                 }
+
+                this.setData('alt', alt);
 
                 this.on( 'contextMenu', function( evt ) {
                     evt.data.image = CKEDITOR.TRISTATE_OFF;
@@ -94,21 +97,23 @@
                 if (this.data.url) {
                     img.setAttribute('src', this.data.url);
                 }
+
+                if (this.data.alt) {
+                    img.setAttribute('alt', this.data.alt);
+                }
             }
         } );
 
-        // Dialog disabled for now
-
         // Register context menu option for editing widget.
-        //if ( editor.contextMenu ) {
-        //    editor.addMenuGroup( 'image', 10 );
-        //
-        //    editor.addMenuItem( 'image', {
-        //        label: 'Eigenschappen afbeelding',
-        //        command: 'image',
-        //        group: 'image'
-        //    } );
-        //}
+        if ( editor.contextMenu ) {
+           editor.addMenuGroup( 'image', 10 );
+
+           editor.addMenuItem( 'image', {
+               label: 'Eigenschappen afbeelding',
+               command: 'image',
+               group: 'image'
+           } );
+        }
 
         editor.ui.addButton && editor.ui.addButton( 'Image', {
             label: 'Afbeelding invoegen',

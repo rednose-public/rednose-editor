@@ -71,12 +71,12 @@ CKEDITOR.plugins.add( 'table', {
 		// If the "menu" plugin is loaded, register the menu items.
 		if ( editor.addMenuItems ) {
 			editor.addMenuItems( {
-				table: {
-					label: lang.menu,
-					command: 'tableProperties',
-					group: 'table',
-					order: 5
-				},
+				// table: {
+				// 	label: lang.menu,
+				// 	command: 'tableProperties',
+				// 	group: 'table',
+				// 	order: 5
+				// },
 
 				tabledelete: {
 					label: lang.deleteTable,

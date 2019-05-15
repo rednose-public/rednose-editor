@@ -55,5 +55,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('stage', ['clean', 'copy']);
-    grunt.registerTask('build', 'shell');
+    grunt.registerTask('build', ['stage', 'shell']);
+    grunt.registerTask('start', ['stage', 'watch']);
 };

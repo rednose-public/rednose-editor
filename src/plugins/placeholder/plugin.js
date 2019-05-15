@@ -56,7 +56,7 @@
                 init: function() {
                     // Note that placeholder markup characters are stripped for the name.
                     this.setData( 'name', this.element.getAttribute('data-placeholder'));
-                    this.setData( 'type', this.element.getAttribute('data-type'));
+                    this.setData( 'type', this.element.getAttribute('data-type') || 'text');
 
                     this.setData( 'value', this.element.getAttribute('data-value') || null);
                     this.setData( 'binding', this.element.getAttribute('data-binding') || null);

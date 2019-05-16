@@ -5,7 +5,7 @@
 
     afterInit: function (editor) {
         editor.ui.add( 'Image', CKEDITOR.UI_BUTTON, {
-            label: 'Afbeelding invoegen',
+            label: 'Insert image',
             command: 'image',
             modes: {wysiwyg: 1},
             editorFocus: 0,
@@ -109,14 +109,14 @@
            editor.addMenuGroup( 'image', 10 );
 
            editor.addMenuItem( 'image', {
-               label: 'Eigenschappen afbeelding',
+               label: 'Image properties',
                command: 'image',
                group: 'image'
            } );
         }
 
         editor.ui.addButton && editor.ui.addButton( 'Image', {
-            label: 'Afbeelding invoegen',
+            label: 'Insert image',
             command: 'image',
             toolbar: 'insert,10'
         } );

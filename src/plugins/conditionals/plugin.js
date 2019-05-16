@@ -327,5 +327,5 @@ CKEDITOR.plugins.add( 'conditionals', {
                 rowNode.setAttribute('data-condition-id', expressionId);
             }
         }
-    },
+    }
 });

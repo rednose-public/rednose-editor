@@ -117,7 +117,7 @@
                 editor.addMenuGroup( 'placeholder', 10 );
 
                 editor.addMenuItem( 'placeholder', {
-                    label: 'Placeholder bewerken...',
+                    label: 'Edit',
                     command: 'placeholder',
                     group: 'placeholder'
                 } );
